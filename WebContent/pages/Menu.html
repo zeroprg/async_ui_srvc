@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  	<meta http-equiv="description" content="Asynchronouse UI services framework">
+    <meta name="viewport" content="width=device-width, maximum-scale=5"/>
+    
+<link rel="stylesheet" type="text/css" href="../css/steps.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<title>Main Menu</title>
+
+</head>
+<body  class="Menu">
+<!-- <img src="../Images/bloberry.jpg"> -->
+Version: <span id="environment"></span>
+
+<div class="container">
+<div class="jumbotron">
+  <h1>Asynchronous UI services framework.</h1> 
+  <p>This is first page which introduce to Asynchronous UI services framework.</p> 
+</div>
+
+
+<div class="row">
+<div class="col-md-4">
+ <h2> Basic concept:</h2>
+  <p> Calls from client to server made in 2 ways: First AJAX health teek. Second AJAX request, 
+    From server to client html5  used EventSource transparent protocol.</p>
+  <p> All imported parameters encrypted and decrepted by JScript client used blacktea.js library</p>
+  <p> From programmer point of view Client only initiate calls from server , server itself send messages to </p> 
+  <p> Every model in framework has own  frequency to send messages to client . It could be dynamically changed by client . (Normally one teek per 1 - 3 sec) </p>
+  <p> All models/windows could be disposed by dispatcher demon of framework based by multiple circumstances</p>
+  <p> There is central dispatch window which may control all other models/window ( see this example). Aka  Linux operational system</p>
+  <p> No need to keep the session per model . All User state data can be stored in Hash maps</p>
+  <p> Easy API and services plug in</p>
+</div>
+  
+  
+<div class="col-md-4">
+  <h2>Conclusion:</h2>
+   <p>Operate and work state-less no user sessions are required,  use tokens for authentications.
+      Every user has own model which linked to user by widow token</p>
+   <p> Fast processing of 10 thousands requests per seconds without memory impact</p>
+   <p> Easy way to add services in Spring way ( as singletons or Abstract Factories ) by using application context xml file the same as Spring has
+      or annotations </p>
+   <p> Possible to create real time application which immediately reflect</p> 
+   <p> Allow to have disconnection from server without big impact to user application and quick restoring</p> 
+   <p> Independed  window system which  allow  to open one type window/model from another and securely  pass credentials information to another window/model</p> 
+ </div>
+  
+  
+  <div class="col-md-4">
+    <h2> Recent features implemented in v.1.1</h2>
+    <p> encryption of URL encoded parameters  </p>
+  </div>
+  
+ <div class="col-md-4">
+    <h2>How to connect chat to your web site</h2>
+    <p> Simple way: use </p>
+    <p><b> &lt;iframe id="frame" allowfullscreen="true"</b> </p>
+    <p><b>   src="http://asyncuisrvc.azurewebsites.net/async_ui_srvc/ui/Messanger.html" </b></p>
+    <p> <b>  style="height: 500px"&gt;&lt;/iframe&gt;</b></p>
+    <p> Complex way: no iframe use whatever CSS and JScript you want, required CORS filter see this example: <a href="http://crunchify.com/what-is-cross-origin-resource-sharing-cors-how-to-add-it-to-your-java-jersey-web-server/"> CORS filter</a> Use the same but change crunch url to this web site url</p>
+    
+  </div>
+  
+<div class="col-md-4">
+    <h2>Links to framework implementations (windows)</h2>
+ <p>
+<table class="Menu" width="270" ><tr><td >
+	<li><a href="#" target="_blank" onClick="NonModalPopupEx('../ui/Messanger.html', 600, 400,'auto'); return false;">Open Messenger</a></li></td></tr ><tr><td>
+	<li><a href="#" target="_blank" onClick="onMenuClick('../ui/WindowList.html?', 750, 920); return false;">Windows dispatcher</a></li></td></tr ><tr><td>
+    <li><a href="http://visualiseall.blogspot.ca/2016/07/how-to-create-messenger-in-java-jscript.html" target="_blank">Source code and blog about it</a></li></td></tr ><tr><td>
+</table>
+</p>
+
+</div>
+
+  
+ </div> <!-- row -->
+</div> <!-- container -->
+
+<br>
+
+
+<div id="loginPopUp" class="modalDialog" style="display:none;" align="center">
+	<div>
+		<h2>Login</h2>
+		<p><input id="login" type="text" name="login"/></p>
+		<p><input id="password" type="password" name="password"/></p>
+		<button title="Login"  onclick="doAuthentification(document.getElementById('login').value,document.getElementById('password').value)">Login</button>
+	</div>
+</div>
+
+<!--  Open modal window in this place -->
+<div id="openModal" class="modalDialog" style="display:none" align="center">
+	<div>
+		<a href="#close" title="Close" class="close" onclick="showhide('Testing')" >X</a>
+		<h2>Warning</h2>
+		<p>This is a sample modal box that can be created using the powers of CSS3.</p>
+	</div>
+</div>
+
+<!-- disabling message Modal -->
+<div id="noConnection" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <p><span id="connectionLost">No connection</span></p>
+  </div>
+</div>
+
+</div>
+<script language="JavaScript" src="../js/jquery-1.9.0.min.js"></script>
+<script language="JavaScript" src="../js/EventSource2.js"></script>
+<script language="JavaScript" src="../js/steps.js"></script>
+<script type="text/javascript">
+var windowClass;
+var windowToken;
+var loginName; 
+var password;
+
+function onMenuClick(url, height, width)
+{
+   var url = url + "loginName=" + loginName + "&password=" + password;
+   return NonModalPopupEx(url, height, width, 'auto');
+}
+
+function myStart()
+{
+	if(eventSource !== undefined) {
+	//Place for custom event listeners
+	}
+}
+
+
+$(document).ready(function() {
+	   var params = readRequestParams();
+	   windowToken = params["windowToken"];
+	   windowClass = params["windowClass"];
+	   start();
+	   myStart();
+	});
+</script>
+</body>
+</html>

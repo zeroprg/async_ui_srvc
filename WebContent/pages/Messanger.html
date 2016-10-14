@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+ 	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+ -->
+    <meta http-equiv="Content-Language" content="en">
+ 	<meta http-equiv="description" content="This is Bloberry chat">
+    <meta name="viewport" content="width=device-width, maximum-scale=5"/>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">    
+<link rel="stylesheet" type="text/css" href="../css/super_chat.css">
+
+ <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css" />
+ <script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
+
+
+<title>Messenger</title>
+<style>
+.tooltip {
+    position: relative;
+    opacity: 1;
+}
+/* .list-group {
+ max-height: 200px;
+ overflow-y:scroll;
+} */
+
+</style>
+</head>
+<body>
+
+<h2 style="flow:right">_  </h2>
+<!-- <span id="environment"></span> -->
+
+<!-- 
+ssbp-set--one ssbp-wrap ssbp--fixed-left ssbp--theme-4
+
+on hide
+ssbp-set--one ssbp-wrap ssbp--fixed-left ssbp--theme-4 ssbp--state-hidden -->
+
+
+
+<div class="menu" onclick="showhide('avatars')">
+      <div class="back" title="Change avatar , send invitation request"><i class="fa fa-chevron-left"></i>
+       <img id="myavatar" title="Change avatar , send invition request" src="../Images/soc_networks/DY6gND0.png" draggable="false" /></div>
+      <div class="name"></div>
+      <div class="last"></div>
+</div>
+
+<div id="mapid" style="display: none;"></div>
+
+<!--  Avatars -->
+<div id="avatars" style="display: none;">
+
+
+<!-- I got these buttons from simplesharebuttons.com -->
+<div id='social' data-ssbp-counts="true" data-ssbp-toggle="true" data-ssbp-responsive="true" data-ssbp-onscroll="true">
+ Send invitation to chat to social networks <br/>
+<!-- <button  style="btn btn-primary" onclick = "$('#social').hide()">Find partner in Social networks (click to hide social networks)</button> -->
+
+  <div id="share-buttons">
+    <!-- Buffer -->
+    <a href="https://bufferapp.com/add?url=url_&amp;text=Secured client encrypted Chat" onclick="replaceUrl(this)" target="_blank">
+        <img src="https://simplesharebuttons.com/images/somacro/buffer.png" alt="Buffer" />
+    </a>
+    
+    <!-- Digg -->
+    <a href="http://www.digg.com/submit?url=url_" onclick="replaceUrl(this)" target="_blank">
+        <img src="https://simplesharebuttons.com/images/somacro/diggit.png" alt="Digg" />
+    </a>
+    
+    <!-- Email -->
+    <a href="mailto:?Subject=Secured client encrypted Chat&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 url_" onclick="replaceUrl(this)">
+        <img src="https://simplesharebuttons.com/images/somacro/email.png" alt="Email" />
+    </a>
+ 
+    <!-- Facebook -->
+    <a href="http://www.facebook.com/sharer.php?u=url_" onclick="replaceUrl(this)" target="_blank">
+        <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
+    </a>
+    
+    <!-- Google+ -->
+    <a href="https://plus.google.com/share?url=url_"  onclick="replaceUrl(this)" target="_blank">
+        <img src="https://simplesharebuttons.com/images/somacro/google.png" alt="Google" />
+    </a>
+    
+    <!-- LinkedIn -->
+    <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=url_" onclick="replaceUrl(this)"target="_blank">
+        <img src="https://simplesharebuttons.com/images/somacro/linkedin.png" alt="LinkedIn" />
+    </a>
+    
+    <!-- Pinterest -->
+    <a href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());">
+        <img src="https://simplesharebuttons.com/images/somacro/pinterest.png" alt="Pinterest" />
+    </a>
+    
+    <!-- Print -->
+    <a href="javascript:;" onclick="window.print()">
+        <img src="https://simplesharebuttons.com/images/somacro/print.png" alt="Print" />
+    </a>
+    
+    <!-- Reddit -->
+    <a href="http://reddit.com/submit?url=url_&amp;title=Secured client encrypted Chat" onclick="replaceUrl(this)" target="_blank">
+        <img src="https://simplesharebuttons.com/images/somacro/reddit.png" alt="Reddit" />
+    </a>
+    
+    <!-- StumbleUpon-->
+    <a href="http://www.stumbleupon.com/submit?url=url_&amp;title=Secured client encrypted Chat" onclick="replaceUrl(this)" target="_blank">
+        <img src="https://simplesharebuttons.com/images/somacro/stumbleupon.png" alt="StumbleUpon" />
+    </a>
+    
+    <!-- Tumblr-->
+    <a href="'http://www.tumblr.com/share/link?url='+ + '&amp;title=No registration Secured client encrypted Chat'" onclick="replaceUrl(this)" target="_blank">
+        <img src="https://simplesharebuttons.com/images/somacro/tumblr.png" alt="Tumblr" />
+    </a>
+     
+    <!-- Twitter -->
+    <a href="https://twitter.com/share?url=url_&amp;text=Secured client encrypted Chat;hashtags=secured chat" onclick="replaceUrl(this)" target="_blank">
+        <img src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" />
+    </a>
+    
+    <!-- VK -->
+    <a href="http://vkontakte.ru/share.php?url=url_" onclick="replaceUrl(this)" target="_blank">
+        <img src="https://simplesharebuttons.com/images/somacro/vk.png" alt="VK" />
+    </a>
+    
+    <!-- Yummly -->
+    <a href="http://www.yummly.com/urb/verify?url=url_&amp;title=No registration Secured client encrypted Chat" onclick="replaceUrl(this)" target="_blank">
+        <img src="https://simplesharebuttons.com/images/somacro/yummly.png" alt="Yummly" />
+    </a>
+</div>
+</div>
+ Choose avatar:<br/>
+<a href="#" class="tooltip,col-md-4" title="Ellie шарф В'язання"><img src="http://cloudmonster.org/1102387021/icons/Ellie-Scarf-Knitting.jpg" alt="Ellie шарф В'язання"></a>
+<a href="#" class="tooltip,col-md-4" title="Том і Анжела цілуються"><img src="http://cloudmonster.org/1102387021/icons/Tom-And-Angela-Kissing.jpg" alt="Том і Анжела цілуються"></a>
+<a href="#" class="tooltip,col-md-4" title="Підліток Весна Dressup"><img src="http://cloudmonster.org/1102387021/icons/Teen-Spring-Dressup.jpg" alt="Підліток Весна Dressup"></a>
+<a href="#" class="tooltip,col-md-4" title="Дитячі Жовто Томатний Сільськогосподарська техніка"><img src="http://cloudmonster.org/1102387021/icons/Baby-Hazel-Tomato-Farming.jpg" alt="Дитячі Жовто Томатний Сільськогосподарська техніка"></a>
+<a href="#" class="tooltip,col-md-4" title="Жир Дора Їжте їдять їдять"><img src="http://cloudmonster.org/1102387021/icons/Fat-Dora-Eat-Eat-Eat.jpg" alt="Жир Дора Їжте їдять їдять"></a>
+<a href="#" class="tooltip,col-md-4" title="Дитячі Барбі Зимові плетінки"><img src="http://cloudmonster.org/1102387021/icons/Baby-Barbie-Winter-Braids.jpg" alt="Дитячі Барбі Зимові плетінки"></a>
+<a href="#" class="tooltip,col-md-4" title="Ельза гардероб"><img src="http://cloudmonster.org/1102387021/icons/Elsa-S-Closet.jpg" alt="Ельза гардероб"></a>
+<a href="#" class="tooltip,col-md-4" title="Барбі Зимові Покупки"><img src="http://cloudmonster.org/1102387021/icons/Barbie-Winter-Shopping.jpg" alt="Барбі Зимові Покупки"></a>
+<a href="#" class="tooltip,col-md-4" title="Сад дівчата одягаються"><img src="http://cloudmonster.org/1102387021/icons/Garden_Girl_Dress_Up.jpg" alt="Сад дівчата одягаються"></a>
+<a href="#" class="tooltip,col-md-4" title="Чарівна Bratz одягаються"><img src="http://cloudmonster.org/1102387021/icons/Charming-Bratz-Dress-Up.jpg" alt="Чарівна Bratz одягаються"></a>
+<a href="#" class="tooltip,col-md-4" title="Рятувальні Друг втечу"><img src="http://cloudmonster.org/1102387021/icons/Rescue-Friend-Escape.jpg" alt="Рятувальні Друг втечу"></a>
+<a href="#" class="tooltip,col-md-4" title="Париж Перукарня 2"><img src="http://cloudmonster.org/1102387021/icons/Paris-Hair-Salon-2.jpg" alt="Париж Перукарня 2"></a>
+<a href="#" class="tooltip,col-md-4" title="Рапунцель Makeover"><img src="http://cloudmonster.org/1102387021/icons/Rapunzel-Makeover.jpg" alt="Рапунцель Makeover"></a>
+<a href="#" class="tooltip,col-md-4" title="Belle Real Makeover"><img src="http://cloudmonster.org/1102387021/icons/Belle-Real-Makeover.jpg" alt="Belle Real Makeover"></a>
+<a href="#" class="tooltip,col-md-4" title="Хеллоуїн одягаються"><img src="http://cloudmonster.org/1102387021/icons/Halloween-Dress-Up.jpg" alt="Хеллоуїн одягаються"></a>
+<a href="#" class="tooltip,col-md-4" title="Заморожені Крістофф Різдво Макіяж"><img src="http://cloudmonster.org/1102387021/icons/Frozen-Kristoff-Christmas-Make-Up.jpg" alt="Заморожені Крістофф Різдво Макіяж"></a>
+<a href="#" class="tooltip,col-md-4" title="Blob Метатель 2"><img src="http://cloudmonster.org/1102387021/icons/Blob-Thrower-2.jpg" alt="Blob Метатель 2"></a>
+<a href="#" class="tooltip,col-md-4" title="DIY Шкіра Лук Браслети"><img src="http://cloudmonster.org/1102387021/icons/Diy-Leather-Bow-Bracelets.jpg" alt="DIY Шкіра Лук Браслети"></a>
+<a href="#" class="tooltip,col-md-4" title="Ice Castle House Makeover"><img src="http://cloudmonster.org/1102387021/icons/Ice-Castle-House-Makeover.jpg" alt="Ice Castle House Makeover"></a>
+<a href="#" class="tooltip,col-md-4" title="подорож одягаються"><img src="http://cloudmonster.org/1102387021/icons/Journey-Dress-Up.jpg" alt="подорож одягаються"></a>
+<a href="#" class="tooltip,col-md-4" title="Зимовий Besties Dressup"><img src="http://cloudmonster.org/1102387021/icons/Winter-Besties-Dressup.jpg" alt="Зимовий Besties Dressup"></a>
+<a href="#" class="tooltip,col-md-4" title="Ельза Makeover Spa"><img src="http://cloudmonster.org/1102387021/icons/Elsa-Makeover-Spa.jpg" alt="Ельза Makeover Spa"></a>
+<a href="#" class="tooltip,col-md-4" title="цукерки розхитування"><img src="http://cloudmonster.org/1102387021/icons/Candy-Slacking.jpg" alt="цукерки розхитування"></a>
+<a href="#" class="tooltip,col-md-4" title="Дитячі Барбі Рудольф Травма"><img src="http://cloudmonster.org/1102387021/icons/Baby-Barbie-Rudolf-Injury.jpg" alt="Дитячі Барбі Рудольф Травма"></a>
+<a href="#" class="tooltip,col-md-4" title="Рапунцель Love Story"><img src="http://cloudmonster.org/1102387021/icons/Rapunzel-Love-Story.jpg" alt="Рапунцель Love Story"></a>
+<a href="#" class="tooltip,col-md-4" title="Повсякденний вбивця одягаються"><img src="http://cloudmonster.org/1102387021/icons/Casual-Assassin-Dress-Up.jpg" alt="Повсякденний вбивця одягаються"></a>
+<a href="#" class="tooltip,col-md-4" title="Принцеса Анна Різдво Makeover"><img src="http://cloudmonster.org/1102387021/icons/Princess-Anna-Christmas-Makeover.jpg" alt="Принцеса Анна Різдво Makeover"></a>
+<a href="#" class="tooltip,col-md-4" title="Спеціальні різдвяні зачіски"><img src="http://cloudmonster.org/1102387021/icons/Special-Christmas-Hairstyles.jpg" alt="Спеціальні різдвяні зачіски"></a>
+<a href="#" class="tooltip,col-md-4" title="Принцеса Royal Дата"><img src="http://cloudmonster.org/1102387021/icons/Princess-Royal-Date.jpg" alt="Принцеса Royal Дата"></a>
+<a href="#" class="tooltip,col-md-4" title="Дитячі Жовто-Гарбуз партія"><img src="http://cloudmonster.org/1102387021/icons/Baby-Hazel-Pumpkin-Party.jpg" alt="Дитячі Жовто-Гарбуз партія"></a>
+<a href="#" class="tooltip,col-md-4" title="Техно-гольф"><img src="http://cloudmonster.org/1102387021/icons/Techno-Golf.jpg" alt="Техно-гольф"></a>
+<a href="#" class="tooltip,col-md-4" title="Різдво розхитування 2014"><img src="http://cloudmonster.org/1102387021/icons/Christmas-Slacking-2014.jpg" alt="Різдво розхитування 2014"></a>
+<a href="#" class="tooltip,col-md-4" title="Меггі пила гри"><img src="http://cloudmonster.org/1102387021/icons/Maggie-Saw-Game.jpg" alt="Меггі пила гри"></a>
+<a href="#" class="tooltip,col-md-4" title="Дора Різдвяний торт"><img src="http://cloudmonster.org/1102387021/icons/Dora-Christmas-Cake.jpg" alt="Дора Різдвяний торт"></a>
+<a href="#" class="tooltip,col-md-4" title="Епічні Час Пірати"><img src="http://cloudmonster.org/1102387021/icons/Epic-Time-Pirates.jpg" alt="Епічні Час Пірати"></a>
+<a href="#" class="tooltip,col-md-4" title="Toon виклик"><img src="http://cloudmonster.org/1102387021/icons/Toon-Challenge.jpg" alt="Toon виклик"></a>
+<a href="#" class="tooltip,col-md-4" title="Доктор шкіри обличчя"><img src="http://cloudmonster.org/1102387021/icons/Facial-Skin-Doctor.jpg" alt="Доктор шкіри обличчя"></a>
+<a href="#" class="tooltip,col-md-4" title="Герой Косплей одягаються"><img src="http://cloudmonster.org/1102387021/icons/Hero-Cosplay-Dress-Up.jpg" alt="Герой Косплей одягаються"></a>
+<a href="#" class="tooltip,col-md-4" title="Tv Simulator 2015"><img src="http://cloudmonster.org/1102387021/icons/Tv-Simulator-2015.jpg" alt="Tv Simulator 2015"></a>
+<a href="#" class="tooltip,col-md-4" title="Злий немовляти Run"><img src="http://cloudmonster.org/1102387021/icons/Angry-Baby-Run.jpg" alt="Злий немовляти Run"></a>
+<a href="#" class="tooltip,col-md-4" title="Просіяти Heads Assault 4"><img src="http://cloudmonster.org/1102387021/icons/Sift-Heads-Assault-4.jpg" alt="Просіяти Heads Assault 4"></a>
+<a href="#" class="tooltip,col-md-4" title="Софія Little Sister"><img src="http://cloudmonster.org/1102387021/icons/Sofia-S-Little-Sister.jpg" alt="Софія Little Sister"></a>
+<a href="#" class="tooltip,col-md-4" title="DuckLife: шукача скарбів"><img src="http://cloudmonster.org/1102387021/icons/Ducklife-Treasure-Hunt.jpg" alt="DuckLife: шукача скарбів"></a>
+<a href="#" class="tooltip,col-md-4" title="Різдво Боулдер"><img src="http://cloudmonster.org/1102387021/icons/Christmas-Boulder.jpg" alt="Різдво Боулдер"></a>
+<a href="#" class="tooltip,col-md-4" title="Spiters Annihilation 3: Холодна помста"><img src="http://cloudmonster.org/1102387021/icons/Spiters-Annihilation-3-Cold-Revenge.jpg" alt="Spiters Annihilation 3: Холодна помста"></a>
+<a href="#" class="tooltip,col-md-4" title="Ельза Потворний Різдвяний светр"><img src="http://cloudmonster.org/1102387021/icons/Elsa-S-Ugly-Christmas-Sweater.jpg" alt="Ельза Потворний Різдвяний светр"></a>
+<a href="#" class="tooltip,col-md-4" title="CuteZee Cooking Academy: Пряники"><img src="http://cloudmonster.org/1102387021/icons/Cutezee-Cooking-Academy-Gingerbread.jpg" alt="CuteZee Cooking Academy: Пряники"></a>
+<a href="#" class="tooltip,col-md-4" title="Різдвяні Fab Цвяхи"><img src="http://cloudmonster.org/1102387021/icons/Christmas-Fab-Nails.jpg" alt="Різдвяні Fab Цвяхи"></a>
+<a href="#" class="tooltip,col-md-4" title="Nexena одягаються"><img src="http://cloudmonster.org/1102387021/icons/Nexena-Dress-Up.jpg" alt="Nexena одягаються"></a>
+<a href="#" class="tooltip,col-md-4" title="Барбі Різдвяна ніч Prep"><img src="http://cloudmonster.org/1102387021/icons/Barbie-Christmas-Night-Prep.jpg" alt="Барбі Різдвяна ніч Prep"></a>
+<a href="#" class="tooltip,col-md-4" title="Santa House Makeover"><img src="http://cloudmonster.org/1102387021/icons/Santa-S-House-Makeover.jpg" alt="Santa House Makeover"></a>
+<a href="#" class="tooltip,col-md-4" title="Дитина у всьому світі: Північний полюс"><img src="http://cloudmonster.org/1102387021/icons/Baby-Around-The-World-North-Pole.jpg" alt="Дитина у всьому світі: Північний полюс"></a>
+<a href="#" class="tooltip,col-md-4" title="Baby Pink Garden Time"><img src="http://cloudmonster.org/1102387021/icons/Baby-Pink-Garden-Time.jpg" alt="Baby Pink Garden Time"></a>
+
+<a href="#" class="tooltip,col-md-4" title="Санта-Сани від нещасного випадку"><img src="http://cloudmonster.org/1102387021/icons/Santa-Sleigh-Accident.jpg" alt="Санта-Сани від нещасного випадку"></a>
+<a href="#" title="Ельза Christmas Manicure"><img src="http://cloudmonster.org/1102387021/icons/Elsa-Christmas-Manicure.jpg" alt="Ельза Christmas Manicure"></a>
+<a href="#" class="tooltip,col-md-4" title="Elsa Різдво Real Стрижки"><img src="http://cloudmonster.org/1102387021/icons/Elsa-Christmas-Real-Haircuts.jpg" alt="Elsa Різдво Real Стрижки"></a>
+<a href="#" class="tooltip,col-md-4" title="Дитячі Жовто Різдвяний сон"><img src="http://cloudmonster.org/1102387021/icons/baby-hazel-christmas-dream.jpg" alt="Дитячі Жовто Різдвяний сон"></a>
+<a href="#" class="tooltip,col-md-4" title="Затишний номер одягаються"><img src="http://cloudmonster.org/1102387021/icons/Cozy-Room-Dress-Up.jpg" alt="Затишний номер одягаються"></a>
+<a href="#" class="tooltip,col-md-4" title="Макіяж Робочий кабінет"><img src="http://cloudmonster.org/1102387021/icons/Office-Room-Makeup.jpg" alt="Макіяж Робочий кабінет"></a>
+<a href="#" class="tooltip,col-md-4" title="Christmas Elf Real Стрижки"><img src="http://cloudmonster.org/1102387021/icons/Christmas-Elf-Real-Haircuts.jpg" alt="Christmas Elf Real Стрижки"></a>
+<a href="#" class="tooltip,col-md-4" title="водяна змія"><img src="http://cloudmonster.org/1102387021/icons/Water-Snake.jpg" alt="водяна змія"></a>
+<a href="#" class="tooltip,col-md-4" title="Заморожений Анна Новий рік Makeover"><img src="http://cloudmonster.org/1102387021/icons/Frozen-Anna-New-Year-Makeover.jpg" alt="Заморожений Анна Новий рік Makeover"></a>
+<a href="#" class="tooltip,col-md-4" title="Барбі Різдво Знайомства"><img src="http://cloudmonster.org/1102387021/icons/Barbie-Christmas-Dating.jpg" alt="Барбі Різдво Знайомства"></a>
+<a href="#" class="tooltip,col-md-4" title="Barbies Різдво Клаптева плаття"><img src="http://cloudmonster.org/1102387021/icons/Barbies-Christmas-Patchwork-Dress.jpg" alt="Barbies Різдво Клаптева плаття"></a>
+<a href="#" class="tooltip,col-md-4" title="Дитячі Барбі Різдво Prep"><img src="http://cloudmonster.org/1102387021/icons/Baby-Barbie-Christmas-Prep.jpg" alt="Дитячі Барбі Різдво Prep"></a>
+<a href="#" class="tooltip,col-md-4" title="Санта-доктор"><img src="http://cloudmonster.org/1102387021/icons/Santa-Doctor.jpg" alt="Санта-доктор"></a>
+<a href="#" class="tooltip,col-md-4" title="Вечеря дівчата одягаються"><img src="http://cloudmonster.org/1102387021/icons/Dinner-Girl-Dress-Up.jpg" alt="Вечеря дівчата одягаються"></a>
+<a href="#" class="tooltip,col-md-4" title="Приготування Sticky Toffee Пудинг"><img src="http://cloudmonster.org/1102387021/icons/Cooking-Sticky-Toffee-Pudding.jpg" alt="Приготування Sticky Toffee Пудинг"></a>
+<a href="#" class="tooltip,col-md-4" title="Siege Hero пірат Грабіж"><img src="http://cloudmonster.org/1102387021/icons/Siege-Hero-Pirate-Pillage.jpg" alt="Siege Hero пірат Грабіж"></a>
+<a href="#" class="tooltip,col-md-4" title="Fun Різдво Покупки"><img src="http://cloudmonster.org/1102387021/icons/Fun-Christmas-Shopping.jpg" alt="Fun Різдво Покупки"></a>
+<a href="#" class="tooltip,col-md-4" title="Шопоголіка Резолюції Новий рік"><img src="http://cloudmonster.org/1102387021/icons/Shopaholic-New-Year-Resolutions.jpg" alt="Шопоголіка Резолюції Новий рік"></a>
+<a href="#" class="tooltip,col-md-4" title="Затишний номер одягаються 2"><img src="http://cloudmonster.org/1102387021/icons/Cozy-Room-Dress-Up-2.jpg" alt="Затишний номер одягаються 2"></a>
+<a href="#" class="tooltip,col-md-4" title="Дитина Барбі Монстр високої костюми"><img src="http://cloudmonster.org/1102387021/icons/Baby-Barbie-Monster-High-Costumes.jpg" alt="Дитина Барбі Монстр високої костюми"></a>
+<a href="#" class="tooltip,col-md-4" title="Новий рік розхитування 2014"><img src="http://cloudmonster.org/1102387021/icons/New-Year-Slacking-2014.jpg" alt="Новий рік розхитування 2014"></a>
+<a href="#" class="tooltip,col-md-4" title="Дорасо Xmas Makeover"><img src="http://cloudmonster.org/1102387021/icons/Doras-Xmas-Makeover.jpg" alt="Дорасо Xmas Makeover"></a>
+<a href="#" class="tooltip,col-md-4" title="Дитячі Жовто Зимова мода"><img src="http://cloudmonster.org/1102387021/icons/Baby-Hazel-Winter-Fashion.jpg" alt="Дитячі Жовто Зимова мода"></a>
+<a href="#" class="tooltip,col-md-4" title="Expand It: Подорожі"><img src="http://cloudmonster.org/1102387021/icons/Expand-It-Travel.jpg" alt="Expand It: Подорожі"></a>
+<a href="#" class="tooltip,col-md-4" title="Равлик Боб 8: Острів Історія"><img src="http://cloudmonster.org/1102387021/icons/Snail-Bob-8-Island-Story.jpg" alt="Равлик Боб 8: Острів Історія"></a>
+<a href="#" class="tooltip,col-md-4" title="Iris одягаються"><img src="http://cloudmonster.org/1102387021/icons/Iris-Dress-Up.jpg" alt="Iris одягаються"></a>
+<a href="#" class="tooltip,col-md-4" title="Спогад Makeover виклик"><img src="http://cloudmonster.org/1102387021/icons/Reminiscence-Makeover-Challenge.jpg" alt="Спогад Makeover виклик"></a>
+<a href="#" class="tooltip,col-md-4" title="Монстр Високий Вовк Діти"><img src="http://cloudmonster.org/1102387021/icons/Monster-High-Wolf-Babies.jpg" alt="Монстр Високий Вовк Діти"></a>
+<a href="#" class="tooltip,col-md-4" title="Smokin Бочки 2"><img src="http://cloudmonster.org/1102387021/icons/Smokin-Barrels-2.jpg" alt="Smokin Бочки 2"></a>
+<a href="#" class="tooltip,col-md-4" title="Алісія одягаються"><img src="http://cloudmonster.org/1102387021/icons/Alicia-Dress-Up.jpg" alt="Алісія одягаються"></a>
+<a href="#" class="tooltip,col-md-4" title="Abbeys сніг монстр"><img src="http://cloudmonster.org/1102387021/icons/Abbeys-Snow-Monster.jpg" alt="Abbeys сніг монстр"></a>
+<a href="#" class="tooltip,col-md-4" title="Disney Princess Різдво"><img src="http://cloudmonster.org/1102387021/icons/Disney-Princess-Christmas.jpg" alt="Disney Princess Різдво"></a>
+<a href="#" class="tooltip,col-md-4" title="Ельза New Year Party"><img src="http://cloudmonster.org/1102387021/icons/Elsa-New-Year-Party.jpg" alt="Ельза New Year Party"></a>
+<a href="#"" class="tooltip,col-md-4" title="Cherry Chrismtas Make Up Look"><img src="http://cloudmonster.org/1102387021/icons/Cherry-Chrismtas-Make-Up-Look.jpg" alt="Cherry Chrismtas Make Up Look"></a>
+<a href="#" class="tooltip,col-md-4" title="Дитина Ellie Новий рік Дбайливий"><img src="http://cloudmonster.org/1102387021/icons/Baby-Ellie-New-Year-Caring.jpg" alt="Дитина Ellie Новий рік Дбайливий"></a>
+<a href="#" class="tooltip,col-md-4" title="Design Your зимові чоботи"><img src="http://cloudmonster.org/1102387021/icons/Design-Your-Winter-Boots.jpg" alt="Design Your зимові чоботи"></a>
+
+<a href="#" class="tooltip,col-md-4" title="Популярні Cheer зачісок"><img src="http://cloudmonster.org/1102387021/icons/Popular-Cheer-Hairstyles.jpg" alt="Популярні Cheer зачісок"></a>
+<a href="#" class="tooltip,col-md-4" title="Дитячі костюми Барбі Манга"><img src="http://cloudmonster.org/1102387021/icons/Baby-Barbie-Manga-Costumes.jpg" alt="Дитячі костюми Барбі Манга"></a>
+<a href="#" class="tooltip,col-md-4" title="Дитячі Жовто-NewYear Bash"><img src="http://cloudmonster.org/1102387021/icons/Baby-Hazel-Newyear-Bash.jpg" alt="Дитячі Жовто-NewYear Bash"></a>
+<a href="#" class="tooltip,col-md-4" title="Головна Prep одягаються"><img src="http://cloudmonster.org/1102387021/icons/Home-Prep-Dress-Up.jpg" alt="Головна Prep одягаються"></a>
+<a href="#" class="tooltip,col-md-4" title="Зимовий плетінки Навчальний посібник"><img src="http://cloudmonster.org/1102387021/icons/Winter-Braids-Tutorial.jpg" alt="Зимовий плетінки Навчальний посібник"></a>
+<a href="#" class="tooltip,col-md-4" title="Харе Launch"><img src="http://cloudmonster.org/1102387021/icons/Hare-Launch.jpg" alt="Харе Launch"></a>
+<a href="#" class="tooltip,col-md-4" title="Road Of Fury 2: Ядерна компанія Blizzard"><img src="http://cloudmonster.org/1102387021/icons/Road-Of-Fury-2-Nuclear-Blizzard.jpg" alt="Road Of Fury 2: Ядерна компанія Blizzard"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Повернутися до роботи"><img src="http://cloudmonster.org/1102387021/icons/Back-To-Work.jpg" alt="Повернутися до роботи"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Караван Beast"><img src="http://cloudmonster.org/1102387021/icons/Caravan-Beast.jpg" alt="Караван Beast"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Zoe Новий рік Секрети"><img src="http://cloudmonster.org/1102387021/icons/Zoe-S-New-Year-Secrets.jpg" alt="Zoe Новий рік Секрети"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Перша допомога Кулінарія від нещасного випадку"><img src="http://cloudmonster.org/1102387021/icons/First-Aid-Cooking-Accident.jpg" alt="Перша допомога Кулінарія від нещасного випадку"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Професійний візажист"><img src="http://cloudmonster.org/1102387021/icons/Professional-Makeup-Artist.jpg" alt="Професійний візажист"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Весільний розхитування 2"><img src="http://cloudmonster.org/1102387021/icons/Wedding-Slacking-2.jpg" alt="Весільний розхитування 2"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Ельза Christmas Spa Ванна"><img src="http://cloudmonster.org/1102387021/icons/Elsa-Christmas-Spa-Bath.jpg" alt="Ельза Christmas Spa Ванна"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Мама народжують новонароджених Babys"><img src="http://cloudmonster.org/1102387021/icons/Mom-Give-Birth-Newborn-Babys.jpg" alt="Мама народжують новонароджених Babys"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Королева Elsa Час подорожі: Китай"><img src="http://cloudmonster.org/1102387021/icons/Queen-Elsa-Time-Travel-China.jpg" alt="Королева Elsa Час подорожі: Китай"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Монстр високої Джіджі Грант Dressup"><img src="http://cloudmonster.org/1102387021/icons/Monster-High-Gigi-Grant-Dressup.jpg" alt="Монстр високої Джіджі Грант Dressup"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Хайфа Інтернеті Макіяж"><img src="http://cloudmonster.org/1102387021/icons/Haifa-Wehbe-Makeup.jpg" alt="Хайфа Інтернеті Макіяж"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Грудня дівчата одягаються"><img src="http://cloudmonster.org/1102387021/icons/December-Girl-Dress-Up.jpg" alt="Грудня дівчата одягаються"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Mountain Hill: Назад Головна"><img src="http://cloudmonster.org/1102387021/icons/Mountain-Hill-Back-Home.jpg" alt="Mountain Hill: Назад Головна"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Дівчинка Go To Park"><img src="http://cloudmonster.org/1102387021/icons/Girl-Go-To-Park.jpg" alt="Дівчинка Go To Park"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Chubby Поцілунок"><img src="http://cloudmonster.org/1102387021/icons/Chubby-Kiss.jpg" alt="Chubby Поцілунок"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Дитячі Барбі Заморожені Особа Картина"><img src="http://cloudmonster.org/1102387021/icons/Baby-Barbie-Frozen-Face-Painting.jpg" alt="Дитячі Барбі Заморожені Особа Картина"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Симпатичні Поні Догляд"><img src="http://cloudmonster.org/1102387021/icons/The-Cute-Pony-Care.jpg" alt="Симпатичні Поні Догляд"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Барбі будинок перетворення"><img src="http://cloudmonster.org/1102387021/icons/Barbie-House-Makeover.jpg" alt="Барбі будинок перетворення"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="міньйон Перукарня"><img src="http://cloudmonster.org/1102387021/icons/Minion-Hair-Salon.jpg" alt="міньйон Перукарня"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Дитячі Жовто Принцеса льоду одягаються"><img src="http://cloudmonster.org/1102387021/icons/Baby-Hazel-Ice-Princess-Dressup.jpg" alt="Дитячі Жовто Принцеса льоду одягаються"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Анна і Крістофф Дитяче харчування"><img src="http://cloudmonster.org/1102387021/icons/Anna-And-Kristoff-Baby-Feeding.jpg" alt="Анна і Крістофф Дитяче харчування"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Головна Streamer одягаються"><img src="http://cloudmonster.org/1102387021/icons/Home-Streamer-Dress-Up.jpg" alt="Головна Streamer одягаються"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Як бути Стюардеса"><img src="http://cloudmonster.org/1102387021/icons/How-To-Be-A-Stewardess.jpg" alt="Як бути Стюардеса"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Comic Stars Fighting v3.6"><img src="http://cloudmonster.org/1102387021/icons/Comic-Stars-Fighting-V3-6.jpg" alt="Comic Stars Fighting v3.6"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Симпатичні Магазини Makeover"><img src="http://cloudmonster.org/1102387021/icons/Cute-Shopping-Makeover.jpg" alt="Симпатичні Магазини Makeover"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Зої горлу Доктор"><img src="http://cloudmonster.org/1102387021/icons/Zoe-At-Throat-Doctor.jpg" alt="Зої горлу Доктор"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Draculaura Клаптева плаття"><img src="http://cloudmonster.org/1102387021/icons/Draculaura-S-Patchwork-Dress.jpg" alt="Draculaura Клаптева плаття"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Kitty Rescue Vet"><img src="http://cloudmonster.org/1102387021/icons/Kitty-Rescue-Vet.jpg" alt="Kitty Rescue Vet"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Кук торт з горіхами"><img src="http://cloudmonster.org/1102387021/icons/Cook-Cake-With-Nuts.jpg" alt="Кук торт з горіхами"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="незвичайні спорт"><img src="http://cloudmonster.org/1102387021/icons/Fancy-Snowboarding.jpg" alt="незвичайні спорт"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Now And Then Anna Sweet Sixteen"><img src="http://cloudmonster.org/1102387021/icons/Now-And-Then-Anna-Sweet-Sixteen.jpg" alt="Now And Then Anna Sweet Sixteen"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Дитина Барбі Ever After High костюми"><img src="http://cloudmonster.org/1102387021/icons/Baby-Barbie-Ever-After-High-Costumes.jpg" alt="Дитина Барбі Ever After High костюми"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Інтер'єр дівчата одягаються"><img src="http://cloudmonster.org/1102387021/icons/Interior-Girl-Dress-Up.jpg" alt="Інтер'єр дівчата одягаються"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Магазин Імперія 3"><img src="http://cloudmonster.org/1102387021/icons/Shop-Empire-3.jpg" alt="Магазин Імперія 3"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Монстр високої Draculaura N Френкі Немовлята"><img src="http://cloudmonster.org/1102387021/icons/Monster-High-Draculaura-N-Frankie-Babies.jpg" alt="Монстр високої Draculaura N Френкі Немовлята"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Ельза Лабіринт пригод"><img src="http://cloudmonster.org/1102387021/icons/Elsa-Maze-Adventure.jpg" alt="Ельза Лабіринт пригод"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Ельза плавальний басейн"><img src="http://cloudmonster.org/1102387021/icons/Elsa-Swimming-Pool.jpg" alt="Ельза плавальний басейн"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Щури Вторгнення 2"><img src="http://cloudmonster.org/1102387021/icons/Rats-Invasion-2.jpg" alt="Щури Вторгнення 2"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Мої пригоди дівчата"><img src="http://cloudmonster.org/1102387021/icons/My-Adventure-Girl.jpg" alt="Мої пригоди дівчата"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Barbi І Ellie Bff Makeover"><img src="http://cloudmonster.org/1102387021/icons/Barbi-And-Ellie-Bff-Makeover.jpg" alt="Barbi І Ellie Bff Makeover"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Zendaya Coleman Натхненний зачісок"><img src="http://cloudmonster.org/1102387021/icons/Zendaya-Coleman-Inspired-Hairstyles.jpg" alt="Zendaya Coleman Натхненний зачісок"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Zombudoy 3: Пірати"><img src="http://cloudmonster.org/1102387021/icons/Zombudoy-3-Pirates.jpg" alt="Zombudoy 3: Пірати"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="знаменитості Snapshot"><img src="http://cloudmonster.org/1102387021/icons/Celebrity-Snapshot.jpg" alt="знаменитості Snapshot"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Педикюр Дизайн салон"><img src="http://cloudmonster.org/1102387021/icons/Pedicure-Design-Salon.jpg" alt="Педикюр Дизайн салон"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Movieplex Frenzy"><img src="http://cloudmonster.org/1102387021/icons/Movieplex-Frenzy.jpg" alt="Movieplex Frenzy"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Texting У класі"><img src="http://cloudmonster.org/1102387021/icons/Texting-In-Class.jpg" alt="Texting У класі"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Дитячі лікарні Barbie Pet"><img src="http://cloudmonster.org/1102387021/icons/Baby-Barbie-Pet-Hospital.jpg" alt="Дитячі лікарні Barbie Pet"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Перша допомога Укуси тварин"><img src="http://cloudmonster.org/1102387021/icons/First-Aid-Animal-Bites.jpg" alt="Перша допомога Укуси тварин"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Приручити Big-Cat Dress Up"><img src="http://cloudmonster.org/1102387021/icons/Tame-Big-Cat-Dress-Up.jpg" alt="Приручити Big-Cat Dress Up"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Бен 10 вулична бійка"><img src="http://cloudmonster.org/1102387021/icons/Ben-10-Street-Fight.jpg" alt="Бен 10 вулична бійка"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Qubed: Нові пригоди"><img src="http://cloudmonster.org/1102387021/icons/Qubed-New-Adventures.jpg" alt="Qubed: Нові пригоди"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Сніг День розхитування"><img src="http://cloudmonster.org/1102387021/icons/Snow-Day-Slacking.jpg" alt="Сніг День розхитування"></a>
+<a href="#" class="tooltip,col-md-4" class="tooltip,col-md-4" title="Snow Fall Race"><img src="http://cloudmonster.org/1102387021/icons/Snow-Fall-Race.jpg" alt="Snow Fall Race"></a>
+
+</div> 
+ <ol id = "msgs" class="chat" reversed="reversed"></ol>
+ <input id= "inputTextArea" class="textarea" type="text" placeholder="Type here!" onchange="sendMessage()"/>
+ <div class="emojis"></div>
+
+
+
+
+
+
+<!-- Modal -->
+
+<div id="loginPopUp" class="modalDialog" style="display: none;">  
+  <!-- <div class="modal-dialog" role="document"> -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Enter to chat room</h4>
+      </div>
+      <div class="modal-body">
+       
+       	<div class="input-group">
+  			<span class="input-group-addon" id="basic-addon1">Name</span>
+  			<input type="text" id="login" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+	    </div>
+		<br>
+		<label for="basic-url">Select private or public chat room</label>
+		<div class="input-group">
+			<span class="input-group-addon"  id="basic-addon2">Room</span>
+  			<input type="text" id="group" class="form-control" placeholder="To create private click check box" aria-describedby="basic-addon2">
+			<span class="input-group-addon">
+        		<input id="group_cb" type="checkbox" onended="sendMessage()"  aria-label="Check for private">
+     		</span>
+		</div>
+		<div class="container">
+		  <label for="basic-url">List of popular Rooms:</label>
+		  <div class="list-group">
+		    <div class="list-group-item"><span id="PREDEFINED_CHATROOM1_badge" class="badge">0</span><var id="PREDEFINED_CHATROOM1" onclick="groupClick(event)"></var></div>
+            <div class="list-group-item"><span id="PREDEFINED_CHATROOM2_badge" class="badge">0</span><var id="PREDEFINED_CHATROOM2" onclick="groupClick(event)"></var></div>
+		    <div class="list-group-item"><span id="PREDEFINED_CHATROOM3_badge" class="badge">0</span><var id="PREDEFINED_CHATROOM3" onclick="groupClick(event)"></var></div>
+		   
+ 		  </div>
+		</div>
+		<br>
+		
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+        <button type="button" class="btn btn-primary" onclick="doRegistration()">Continue</button>
+      </div>
+    </div>
+  </div>
+<!--
+ </div>
+ -->
+ 
+<!-- 
+	<div id="loginPopUp" class="modalDialog" style="display: none;"
+		align="center">
+		<div>
+			<h2>Open chat room</h2>
+			<b>User:</b> <br> <input id="login" type="text" name="Register" tabindex="1" />
+			<br> <b>Room:</b> <br> <input id="group" type="text" name="Group" tabindex="2" /> <br>
+			<button type = "button" class = "btn btn-primary" onclick="doRegistration()" title="Register" tabindex="3">Register</button>
+
+		</div>
+	</div>
+
+ -->
+
+
+	<!--  Open modal window in this place -->
+<div id="openModal" class="modalDialog" style="display:none" align="center">
+	<div>
+		<a href="#close" title="Close" class="close" onclick="showhide()" >X</a>
+		<h2>Warning</h2>
+		<p>This is a sample modal box that can be created using the powers of CSS3.</p>
+	</div>
+</div>
+
+
+<!-- disabling message Modal -->
+<div id="noConnection" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <p><span id="connectionLost">No connection</span></p>
+  </div>
+</div>
+
+
+<script language="JavaScript" src="../js/jquery-3.0.0.min.js"></script>
+<script language="JavaScript" src="../js/EventSource2.js"></script>
+<script language="JavaScript" src="../js/steps.js"></script>
+<script src="../js/blacktea.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script> -->
+<script type="text/javascript">
+var windowClass;
+var windowToken;
+var loginName; 
+var password; 
+var passfrase = 'Secret Passphrase';
+var group;
+var private = false;
+var avatarSelected = "../Images/soc_networks/DY6gND0.png";
+var my_lon;
+var my_lat;
+var map;
+var PREDEFINED_CHATROOM1 = "Pokemon Go in your area";
+var PREDEFINED_CHATROOM2 = "USGC last hour Earthquakes";
+var PREDEFINED_CHATROOM3 = "Emergency situation room";
+var PREDEFINED_CHATROOM4 = "About him?";
+$("#PREDEFINED_CHATROOM1").text(PREDEFINED_CHATROOM1);
+$("#PREDEFINED_CHATROOM2").text(PREDEFINED_CHATROOM2);
+$("#PREDEFINED_CHATROOM3").text(PREDEFINED_CHATROOM3);
+//$("#PREDEFINED_CHATROOM4").text(PREDEFINED_CHATROOM4);
+//http://skiplagged.com.com/api/pokemon.php?bounds=49.2579,-123.1108,49.297900000000006,-123.0708.
+	   //get GPS coorsnates
+	   var options = {
+			  enableHighAccuracy: true,timeout: 5000,
+			   maximumAge:0
+	   };
+		
+		
+function myStart()
+{
+	
+	if(eventSource !== undefined) {
+	//Place for custom event listeners
+	
+		eventSource.addEventListener('updateTextArea', function(event){
+			console.log ("Event updateTextArea:' data: " +  event.data + " event.lastEventId: " + +event.lastEventId);
+ 		 	
+ 			if( event.data !== undefined && event.lastEventId == 'grouplist' )
+			{
+				var groupList = event.data.split(',');
+		    	var groupListHTML="";
+		    	for ( i=0; i < groupList.length-1; i++ ) {
+		    		var gr = groupList[i].split('|',2);
+		    		var group_  = Tea.decrypt(gr[0], passfrase);
+		    		if( group_ == PREDEFINED_CHATROOM1 || group_ == PREDEFINED_CHATROOM2 ||  group_ == PREDEFINED_CHATROOM3 ){
+                     $('#' + group_ + '_badge').val(gr[1]);    
+                    } 
+                    else 
+                    { 
+		    		    groupListHTML += '<div class="list-group-item"><span class="badge">' + gr[1] +'</span><var onclick="groupClick(event)">'+ group_ +'</var></div>';
+                    }
+		    	}
+		    	$(".list-group").html( $(".list-group").html() + groupListHTML );
+			}
+	 		  
+			if( event.data !== undefined && event.lastEventId == 'message' )
+			{
+				var data_ = event.data.split('|',2); 
+				var encoded = data_[1];//.replace(/"/g,'');
+				var decrepted = Tea.decrypt(encoded, passfrase); // CryptoJS.AES.decrypt(encoded, passfrase);
+				var decrepted_data = decrepted.split('|',4);
+				var lat = decrepted_data[0];
+				var lon = decrepted_data[1];
+				//console.log('decrepted_data[2]: ' + decrepted_data[2]);
+				var avatarImg = decrepted_data[2] =='' ?  "../Images/soc_networks/DY6gND0.png": decrepted_data[2];
+				
+				var decrepted_txt = decrepted_data[3];
+				var loginName_decr = Tea.decrypt(data_[0], passfrase);
+				if(lat === undefined || lon === undefined) {}
+				else
+				{
+					var marker = L.marker([lat, lon]).addTo(map);
+					marker.bindPopup("<b>" + loginName_decr + "</b><br>" + decrepted_txt).openPopup();
+					if ( data_[0] == loginName ) setTimeout( redrawGPSPosition, 60*1000, marker);					
+				}
+				
+				
+				$("#msgs").html(
+			    
+				(data_[0] == loginName?'<li class="self">':'<li class="other">') 
+			       + '<div class="avatar"><img src="' + avatarImg  + '" draggable="false"></div>'
+			       + '<div class="msg">'
+			          + loginName_decr + ':<p>' + decrepted_txt + '</p>' // .toString(CryptoJS.enc.Utf8)
+			         +'<time>' + new Date().getHours() + ':' + new Date().getMinutes() + '</time>'
+			      +'</div>'
+			   + '</li>' 
+			   + $("#msgs").html() 
+			   ); 
+			 // $("#msgs li:last-child").focus();
+   			}
+	    });
+  	
+	}
+}
+
+function populateMsg(avatarImg, msg_html)
+{ return  '<div class="avatar"> <img src="' + avatarImg  + '" draggable="false"></div>'
+			       + '<div class="msg">'
+			          +  msg_html
+			      +'</div>'
+			   + '</li>';
+ }
+
+function replaceUrl(element)
+{   
+	var attr = element.getAttribute('href');
+	var str = window.location.protocol +'//' + window.location.host + window.location.pathname;
+	str = str.replace('pages','ui');
+	private = document.getElementById('group_cb').checked;
+	element.setAttribute('href', attr.replace('url_',str + '?group='+encode(group) +'&private=' +  private));
+}
+
+function sendMessage()
+{
+	
+	//document.getElementById('inputTextArea').value.split(" ")
+	var data =  Tea.encrypt(  my_lat + '|' + my_lon + '|' + avatarSelected + '|' + document.getElementById('inputTextArea').value, passfrase); // CryptoJS.AES.encrypt(document.getElementById('inputTextArea').value.trim(), passfrase);
+	document.getElementById('inputTextArea').value = '';
+	private = document.getElementById('group_cb').checked;
+	var group_ = encode(Tea.encrypt(group,passfrase)); // private?encode(Tea.encrypt(group,passfrase)):encode(group);
+	sendRequest("action=message&loginName=" + encode(Tea.encrypt(loginName,passfrase)) + "&group=" + group_ + "&private=" + private +"&data="+ encode(data));  
+	//Tea.encrypt(loginName,passfrase) + "&group=" + Tea.encrypt(group,passfrase) + "&data="+ data);  	
+}
+
+function doRegistration()
+{
+	var loginName = document.getElementById('login').value;
+	group = document.getElementById('group').value;
+	passfrase = passfrase +  group;
+	//document.getElementById('chatGroup').innerHTML = 'Welcome ' + loginName+  " to '" +group + "' chat channel";
+	private = document.getElementById('group_cb').checked;
+	var group_ = encode(Tea.encrypt(group,passfrase)); // private?encode(Tea.encrypt(group,passfrase)):encode(group);
+    sendRequest('action=doAuthent&loginName='+ encode(Tea.encrypt(loginName,passfrase))  +'&group='+ group_+ "&private=" + private );  
+  // sendRequest('action=doAuthent&loginName='+ Tea.encrypt(loginName,passfrase)+'&group='+ Tea.encrypt(group,passfrase) );  
+    // clear all messages
+    $("#msgs").html("");
+    $(".name").html(loginName +" in '"+ group + "'");
+    $(".last").html( new Date().getHours() + ':' + new Date().getMinutes() );
+ 
+    showhide('mapid');
+    
+    if( group == PREDEFINED_CHATROOM1 ){
+     var delay = show_pokemons_on_map(my_lat, my_lon);
+     setTimeout( redrawPokemons, delay *60*1000); //redraw every delay min
+     } else if( group == PREDEFINED_CHATROOM2 ){
+     show_earthquakes_on_map(my_lat, my_lon);
+     setTimeout( redrawEarthquakes, 60*1000); //redraw every 1 min
+     }
+    
+    sendMessage();
+ 
+}
+
+
+//getting all the markers at once
+function getAllMarkers() {
+
+    var allMarkersObjArray = []; // for marker objects
+    var allMarkersGeoJsonArray = []; // for readable geoJson markers
+
+    $.each(map._layers, function (ml) {
+
+        if (map._layers[ml].feature) {
+
+            allMarkersObjArray.push(this)
+            allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON()))
+        }
+    })
+
+  //  console.log(allMarkersObjArray);
+}
+
+function show_earthquakes_on_map(my_lat, my_lon)
+{
+   $.getJSON('//earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson',
+       		 function(data) {
+                    console.log("JSONP called");
+                    $.each(data.features, function( index, item ) {
+                       var magnitude = item.properties.mag;
+				        
+                         var ErthquakeIcon = L.Icon.Default.extend({
+			              options: {
+			            	    iconUrl:   'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + magTocolor(magnitude) +  '&chf=a,s,ee00FFFF',
+			                    iconSize:  [10*magnitude, 18*magnitude], // size of the icon
+			                    shadowSize:[10*magnitude, 18*magnitude], // size of the shadow
+ 			            }
+			         });                   
+                    var erthquakeIcon = new ErthquakeIcon();
+                    var title = item.properties.title;    
+                    var lat = item.geometry.coordinates[1];
+                    var lon = item.geometry.coordinates[0];
+               
+                    var marker = L.marker([lat, lon], {icon: erthquakeIcon}).addTo(map);
+                    var date = new Date(item.properties.time);
+                    var text =  '<b> Time: </b> :' + date.toLocaleString() + '</br> ' ; 
+                    text +=  '<b> depth: </b> :' + item.geometry.coordinates[2] + '</br> ' ;
+                    text +=  '<b> Magnitude: </b> :' + item.properties.mag + '</br> ' ;
+					marker.bindPopup("<b>" + title + "</b><br>" + text).openPopup();
+                    if( $("#msgs b:contains(" + title + ")").length==0 ) { // populate if only it's new
+                        $("#msgs").html('<li class="self">'+ populateMsg ("", "<b>" + title + "</b><br>" + text) + $("#msgs").html());
+                    }
+ 					//if ( data_[0] == loginName ) setTimeout( redrawGPSPosition, 60*1000, marker);		
+               });          
+   });
+}
+
+function magTocolor(magnitude)
+ { 
+     var color;
+    if(magnitude < 1  )         color ='D7BDE2';
+    else if( magnitude < 2.5  ) color ='6C3483';
+    else if( magnitude < 3  )   color ='1F618D';
+    else if( magnitude < 4  )   color ='196F3D';
+    else if( magnitude < 5 )    color ='F4D03F';
+    else if( magnitude < 5.5 )  color ='DC7633';
+    else if( magnitude < 6 )    color ='FF5733';
+    else if( magnitude < 7 )    color ='FF5000';
+    else if( magnitude < 10 )   color ='FF0000';
+    return color;
+}
+
+function show_pokemons_on_map(my_lat, my_lon)
+{
+    var delay = 10; // default delay for pokemon
+	
+	$.getJSON('/async_ui_srvc/skiplagged.com/api/pokemon.php?bounds='+ (my_lat - 0.1) +',' + (my_lon - 0.1) + ',' + (my_lat + 0.1) +',' + (my_lon + 0.1), 
+			function(data) {
+	//		console.log(JSON.stringify(data, null, 2));
+
+			$.each(data.pokemons, function( index, pokemon ) {
+				 // console.log( pokemon.pokemon_name + ": " + ", expires: " + pokemon.expires + ", lat:" + pokemon.latitude + " lon:"+ pokemon.longitude);
+							 
+			         //Extend the Default marker class
+			         var PokemonIcon = L.Icon.Default.extend({
+			            options: {
+			            	    iconUrl: 'http://skipcdn.net/img/pokemon/small/' + pokemon.pokemon_id + '.png',
+			                        iconSize:     [60, 60], // size of the icon
+			                        shadowSize:   [50, 64], // size of the shadow
+			            }
+			         });
+			         
+			         var pokemonIcon = new PokemonIcon();
+			         
+
+					var marker = L.marker([pokemon.latitude, pokemon.longitude],{icon: pokemonIcon}).addTo(map);
+					marker.bindPopup("<b>" + pokemon.pokemon_name + '</b><br>Find me').openPopup();
+					delay = - ( new Date().getMinutes() - new Date(pokemon.expires).getMinutes());
+					delay = delay < 0 ? (60 + delay) : delay; 
+				//	console.log(" pokemon.pokemon_name : "+  pokemon.pokemon_name +" delay: "+ delay + " (mins)");
+					setTimeout( removeLayer, delay *60*1000, marker);
+					
+			    
+			});
+			$('#pokemonbadge').text(data.pokemons.length );
+			});
+	  
+	  return delay;
+ }
+ 
+
+
+
+function redrawPokemons(){
+   //get GPS coorsnates
+   navigator.geolocation.getCurrentPosition(getGPSPosition, errorGPSposition, options);
+   var delay = show_pokemons_on_map(my_lat, my_lon);
+   setTimeout( redrawPokemons, delay *60*1000); //redraw every delay min
+}
+
+
+function redrawEarthquakes(){
+   //get GPS coorsnates
+   navigator.geolocation.getCurrentPosition(getGPSPosition, errorGPSposition, options);
+   show_earthquakes_on_map(my_lat, my_lon);
+   setTimeout( redrawEarthquakes, 60*1000); //redraw every 1 min
+}
+
+function removeLayer(marker)
+{
+	  //get GPS coorsnates
+//	navigator.geolocation.getCurrentPosition(getGPSPosition, errorGPSposition, options);
+//	   my_lat = position.coords.latitude;
+//	   my_lon = position.coords.longitude;
+  
+	map.removeLayer(marker);
+}
+
+function redrawGPSPosition (my_marker)
+{
+	  //get GPS coorsnates
+	navigator.geolocation.getCurrentPosition(getGPSPosition, errorGPSposition, options);
+    var newLatLng = new L.LatLng(my_lat, my_lon);
+    my_marker.setLatLng(newLatLng); 
+    setTimeout( redrawGPSPosition, 60*1000, my_marker); // every minute
+}
+
+function showhide(element){
+	$( "#" + element ).toggle()
+}
+
+
+function groupClick (e) { 
+	  var element = e.target || e.srcElement;
+	  var room  = document.getElementById("group");
+	  room.value = element.innerHTML;
+	  group = element.innerHTML;
+	 
+	  $(".list-group-item").attr('class','list-group-item');
+	  element.parentElement.setAttribute('class','list-group-item active');
+  	  navigator.geolocation.getCurrentPosition(getGPSPosition, errorGPSposition, options);
+ }
+	 
+$(document).ready(function() {
+	
+    $.ajaxSetup({
+        async: true
+    });
+	
+	   var params = readRequestParams();
+	   windowToken = params["windowToken"];
+	   windowClass = params["windowClass"];
+	   group =  params["group"];
+	   $('#group').val(group);
+	   var login = document.getElementById('login');
+	   $('#avatars > a').on("click", 
+			    function(e)
+			    { 
+		   		  var source = e.target || e.srcElement;
+				  avatarSelected = source.getAttribute("src");
+				  document.getElementById('myavatar').setAttribute("src",avatarSelected);
+				  showhide( 'avatars' );
+				 });
+
+	   login.focus();
+	   start();
+	   myStart();
+	   
+	
+
+	   
+ // 	   navigator.geolocation.getCurrentPosition(getGPSPosition, errorGPSposition, options);
+
+  	  sendMessage();
+	   });
+	  
+  function errorGPSposition()
+  {
+	  getGeoLocation();
+  } 	  
+	  
+  function getGPSPosition(position) 
+  {
+	   my_lat = position.coords.latitude;
+	   my_lon = position.coords.longitude;
+	   console.log ( " my latitude: " + my_lat + " my longitude "+  my_lon);
+	   mapGeneration(my_lat, my_lat);
+  } 
+  
+
+  
+	function mapGeneration(my_lat, my_lon) {
+		if( map === undefined )
+		{
+           var default_scale = 13; 
+        if( group == PREDEFINED_CHATROOM2 ){
+            default_scale = 1;
+        }     
+             
+		map = L.map('mapid').setView([ my_lat, my_lon ], default_scale);
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+						{
+							attribution : '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+						}).addTo(map);
+		}
+		else 
+		{
+		//	map.setView([ my_lat, my_lon ], 13);
+		}
+	}
+
+	function getGeoLocation()
+	{
+	    console.log ( " my latitude: " + my_lat + " my longitude: "+  my_lon);
+		if ( my_lat === undefined	|| my_lon === undefined)
+		{
+			$.getJSON('//freegeoip.net/json/?callback=?', 
+				function(data) {
+				//console.log(JSON.stringify(data, null, 2));
+				my_lat = data.latitude;
+				my_lon = data.longitude;
+				mapGeneration(my_lat, my_lat);
+			});
+
+		}
+	}
+</script>
+</body>
+</html>

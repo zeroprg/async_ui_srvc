@@ -1,0 +1,30 @@
+<head>
+	<link rel="stylesheet" type="text/css" href="steps.css">
+	<script language="JavaScript" src="jquery-3.0.0.min.js"></script>
+</head>
+<body>
+<a href="#openModal"  onclick="showhide('openModal')">Open Modal</a>
+<div id="openModal" class="modalDialog" style="display:none">
+	<div>
+		<a href="#close" title="Close" class="close" onclick="showhide('Testing')" >X</a>
+		<h2>Warning message</h2>
+		<p>This is a sample modal box that can be created using the powers of CSS3.</p>
+	</div>
+</div>
+<script type="text/javascript">
+	function showhide(content)
+	{
+	   var div = document.getElementById('openModal');
+	   if( div == null ) return;
+	   $("#openModal p").html(content);
+	   if (div.style.display !== "none") {
+    	     div.style.display = "none";
+		}
+		else {
+		    div.style.display = "block";
+		}
+
+}
+</script>
+
+</body>

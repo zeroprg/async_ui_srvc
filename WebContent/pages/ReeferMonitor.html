@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<!-- 
+
+Simple HTML based layoput for reefer monitor web page.
+
+This is NOT HTML 5 compliant !
+
+Created C.Postle - june-2016 
+
+ -->
+<html>
+	<head>
+
+        <title>CHESS - Reefer monitoring</title>
+        
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=5 ">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is reefer monitor page">
+    <!-- <link rel="stylesheet" type="text/css" href="css/steps.css"> -->
+    <style>
+    .modalDialog {
+		pointer-events: auto;
+      /*  display: none; */ /* Hidden by default */
+	    position: fixed; /* Stay in place */
+	    z-index: 1; /* Sit on top */
+	    padding-top: 100px; /* Location of the box */
+	    left: 0;
+	    top: 0;
+	    width: 100%; /* Full width */
+	    height: 100%; /* Full height */
+	    overflow: auto; /* Enable scroll if needed */
+	    background-color: rgb(0,0,0); /* Fallback color */
+	    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	}
+	
+	.modalDialog > div {
+		width: 400px;
+		position: relative;
+		margin: 10% auto;
+		padding: 5px 20px 13px 20px;
+		border-radius: 10px;
+		background: #fff;
+		background: -moz-linear-gradient(#fff, #999);
+		background: -webkit-linear-gradient(#fff, #999);
+		background: -o-linear-gradient(#fff, #999);
+
+	}
+    
+    /*These styles to display No Rogers coverage message  */
+	/* The Modal (background) */
+	.modal {
+	    display: none; /* Hidden by default */
+	    position: fixed; /* Stay in place */
+	    z-index: 1; /* Sit on top */
+	    padding-top: 100px; /* Location of the box */
+	    left: 0;
+	    top: 0;
+	    width: 100%; /* Full width */
+	    height: 100%; /* Full height */
+	    overflow: auto; /* Enable scroll if needed */
+	    background-color: rgb(0,0,0); /* Fallback color */
+	    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	}
+	
+	/* Modal Content */
+	.modal-content {
+	    font-size: 300%;
+	    text-align: center;
+	    color: red;
+	    margin: auto;
+	    padding: 20px;
+	    width: 100%;
+	}
+
+	.close {
+		background: #606061;
+		color: #FFFFFF;
+		line-height: 25px;
+		position: absolute;
+		right: -12px;
+		text-align: center;
+		top: -10px;
+		width: 24px;
+		text-decoration: none;
+		font-weight: bold;
+		-webkit-border-radius: 12px;
+		-moz-border-radius: 12px;
+		border-radius: 12px;
+		-moz-box-shadow: 1px 1px 3px #000;
+		-webkit-box-shadow: 1px 1px 3px #000;
+		box-shadow: 1px 1px 3px #000;
+	}
+	
+	.close:hover { background: #00d9ff; }
+	
+	
+
+</style>    
+</head>
+	
+	<body onload="start();myStart();">				
+		<div id="main" bgcolor="#ccf2ff" >
+            <table>
+               <tr>
+                   <td>
+                       <!-- The left hand control area -->
+                       <td id="controls" bgcolor="#ccf2ff" style="width:20%" valign="top">
+                           <table>
+                               <tr>
+                                   <td>
+                                       <!-- The selection controls -->  
+                                       Area&nbsp;
+                                       <select onchange="changeWorkArea()" id="areaCtrl">
+                                       </select>
+                                       &nbsp;&nbsp;
+                                       Block&nbsp;
+                                       
+                                       <!-- changes depending upon the selected area -->
+                                       <select onchange="changeWorkArea()" id="blockCtrl">
+                                       </select>
+                                       
+                                       <br><br>
+                                       Show&nbsp;
+                                       <select onchange="changeWorkArea()" id="filterCtrl">
+                                           <option value="filter_checked">Checked</option>
+                                           <option value="filter_unchecked">Unchecked</option>
+                                           <option value="filter_none">All</option>
+                                       </select>
+                                       
+                                       <br>
+                                       <br>
+                                       Sort&nbsp;
+                                       <select onchange="changeWorkArea()" id="sortCtrl">
+                                           <option value="sort_ascending">Tier ascending</option>
+                                           <option value="sort_descending">Tier descending</option>
+                                       </select>
+                                       
+                                       <br>
+                                   </td>
+                               </tr>
+                               <tr>
+                                    <td>
+                                       <!-- The list of containers in the selected block -->
+                                       &nbsp;
+                                       &nbsp;
+                                       <table id="blockTable" border="1" bgcolor="#ffffff">
+                                           <thead>
+                                               <tr><th bgcolor="#cccccc">CHECKED</th><th bgcolor="#cccccc">LOCATION</th><th bgcolor="#cccccc">CONTAINER</th></tr>
+                                           </thead>    
+                                           <tr id="row00" ><td id="checked00" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container00').innerHTML)"> </td><td id="position00" onclick="selectContainer(document.getElementById ('container00').innerHTML)" > </td><td id="container00" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row01" ><td id="checked01" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container01').innerHTML)"> </td><td id="position01" onclick="selectContainer(document.getElementById ('container01').innerHTML)" > </td><td id="container01" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row02" ><td id="checked02" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container02').innerHTML)"> </td><td id="position02" onclick="selectContainer(document.getElementById ('container02').innerHTML)" > </td><td id="container02" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row03" ><td id="checked03" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container03').innerHTML)"> </td><td id="position03" onclick="selectContainer(document.getElementById ('container03').innerHTML)" > </td><td id="container03" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row04" ><td id="checked04" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container04').innerHTML)"> </td><td id="position04" onclick="selectContainer(document.getElementById ('container04').innerHTML)" > </td><td id="container04" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row05" ><td id="checked05" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container05').innerHTML)"> </td><td id="position05" onclick="selectContainer(document.getElementById ('container05').innerHTML)" > </td><td id="container05" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row06" ><td id="checked06" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container06').innerHTML)"> </td><td id="position06" onclick="selectContainer(document.getElementById ('container06').innerHTML)" > </td><td id="container06" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row07" ><td id="checked07" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container07').innerHTML)"> </td><td id="position07" onclick="selectContainer(document.getElementById ('container07').innerHTML)" > </td><td id="container07" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row08" ><td id="checked08" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container08').innerHTML)"> </td><td id="position08" onclick="selectContainer(document.getElementById ('container08').innerHTML)" > </td><td id="container08" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row09" ><td id="checked09" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container09').innerHTML)"> </td><td id="position09" onclick="selectContainer(document.getElementById ('container09').innerHTML)" > </td><td id="container09" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row10" ><td id="checked10" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container10').innerHTML)"> </td><td id="position10" onclick="selectContainer(document.getElementById ('container10').innerHTML)" > </td><td id="container10" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row11" ><td id="checked11" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container11').innerHTML)"> </td><td id="position11" onclick="selectContainer(document.getElementById ('container11').innerHTML)" > </td><td id="container11" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row12" ><td id="checked12" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container12').innerHTML)"> </td><td id="position12" onclick="selectContainer(document.getElementById ('container12').innerHTML)" > </td><td id="container12" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row13" ><td id="checked13" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container13').innerHTML)"> </td><td id="position13" onclick="selectContainer(document.getElementById ('container13').innerHTML)" > </td><td id="container13" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row14" ><td id="checked14" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container14').innerHTML)"> </td><td id="position14" onclick="selectContainer(document.getElementById ('container14').innerHTML)" > </td><td id="container14" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row15" ><td id="checked15" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container15').innerHTML)"> </td><td id="position15" onclick="selectContainer(document.getElementById ('container15').innerHTML)" > </td><td id="container15" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row16" ><td id="checked16" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container16').innerHTML)"> </td><td id="position16" onclick="selectContainer(document.getElementById ('container16').innerHTML)" > </td><td id="container16" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row17" ><td id="checked17" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container17').innerHTML)"> </td><td id="position17" onclick="selectContainer(document.getElementById ('container17').innerHTML)" > </td><td id="container17" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row18" ><td id="checked18" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container18').innerHTML)"> </td><td id="position18" onclick="selectContainer(document.getElementById ('container18').innerHTML)" > </td><td id="container18" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row19" ><td id="checked19" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container19').innerHTML)"> </td><td id="position19" onclick="selectContainer(document.getElementById ('container19').innerHTML)" > </td><td id="container19" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row20" ><td id="checked20" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container20').innerHTML)"> </td><td id="position20" onclick="selectContainer(document.getElementById ('container20').innerHTML)" > </td><td id="container20" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row21" ><td id="checked21" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container21').innerHTML)"> </td><td id="position21" onclick="selectContainer(document.getElementById ('container21').innerHTML)" > </td><td id="container21" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row22" ><td id="checked22" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container22').innerHTML)"> </td><td id="position22" onclick="selectContainer(document.getElementById ('container22').innerHTML)" > </td><td id="container22" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row23" ><td id="checked23" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container23').innerHTML)"> </td><td id="position23" onclick="selectContainer(document.getElementById ('container23').innerHTML)" > </td><td id="container23" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row24" ><td id="checked24" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container24').innerHTML)"> </td><td id="position24" onclick="selectContainer(document.getElementById ('container24').innerHTML)" > </td><td id="container24" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row25" ><td id="checked25" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container25').innerHTML)"> </td><td id="position25" onclick="selectContainer(document.getElementById ('container25').innerHTML)" > </td><td id="container25" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row26" ><td id="checked26" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container26').innerHTML)"> </td><td id="position26" onclick="selectContainer(document.getElementById ('container26').innerHTML)" > </td><td id="container26" onclick="selectContainer(this.innerHTML)"></td> </tr>
+                                           <tr id="row27" ><td id="checked27" style="display:block; min-height:18px;" onclick="selectContainer(document.getElementById ('container27').innerHTML)"> </td><td id="position27" onclick="selectContainer(document.getElementById ('container27').innerHTML)" > </td><td id="container27" onclick="selectContainer(this.innerHTML)"></td> </tr>                           
+                                        </table>
+                                        <br>
+                                    </td>
+                               </tr>
+
+                               <tr>
+                                   <td> 
+                                       <!-- The container lookup button - gets arg from the text area then invokes container_lookup page with URL arg -->
+                                       <input id="lookupContainer" type="text" name="lookupContainer">&nbsp;
+                                       <input id="lookupButton" style="height:50px;width:70px" type="button" value="LOOKUP" onclick="lookupContainer();" />  
+                                   </td>
+                               </tr>
+                               
+                           </table>
+                   </td>
+                    
+   
+                   <!-- The right hand selected container display -->                    
+                   <td id="container" bgcolor="#ffffcc" style="width:80%" valign="top">
+                       <h3 align="center">Reefer monitor - CHESS for <span id="environment"></span></h3>
+                       <br>
+                       <br>
+                       <br>
+
+                       <table border="1" bgcolor="#ffffff" width="100%">
+                           <tr><td bgcolor="#cccccc" width="50%">Container Id</td><td width="50%" id="selContainer"></td></tr>
+                           <tr><td bgcolor="#cccccc">Last checked</td><td id="selLastChecked"></td></tr>
+                           <tr><td bgcolor="#cccccc">Position</td><td bgcolor="#ffffff" id="selPositionTd"><input type="text" name="selPosition" value="" id="selPosition" size="6" maxlength="6" style="background-color: #99ff33;visibility:collapse" onchange="editContainerProperties(this,'selPositionTd');"  /></td></tr>
+                           <tr><td bgcolor="#cccccc">Temperature required</td><td id="selReqTemp"></td></tr>
+                           <tr><td bgcolor="#cccccc">Current temperature</td><td bgcolor="#ffffff" id="selCurTempTd"><input type="text" name="currentTempField" value="" id="selCurTemp" size="6" maxlength="6" style="background-color: #99ff33;visibility:collapse" onchange="editContainerProperties(this,'selCurTempTd');" /></td></tr>
+                           <tr><td bgcolor="#cccccc">Comments</td><td id="selCommentTd" bgcolor="#ffffff"><input type="text" name="selComment" value="" id="selComment" size="40" maxlength="40" style="background-color: #99ff33;visibility:collapse" onchange="editContainerProperties(this,'selCommentTd');"  /></td></tr>                           
+                           <tr><td bgcolor="#cccccc">Fault code</td><td bgcolor="#ffffff" id="selFaultCodeTd"><input type="text" name="selFaultCode" value="" id="selFaultCode" size="6" maxlength="6" style="background-color: #99ff33;visibility:collapse" onchange="editContainerProperties(this,'selFaultCodeTd');"  /></td>
+ <!--                            
+                                    <select id="selFaultCode" style="background-color: #99ff33">
+                                       <option value="fc000">000-Healthy on power</option>
+                                       <option value="fc001">002-Healthy off power</option>
+                                       <option value="fc002">003-Broken fault 1</option>                                       
+                                       <option value="fc003">004-Broken fault 2</option>
+                                       
+                                   </select>
+  -->   
+                           </tr> 
+                       </table>
+                       <br>
+                       <br>
+                       <br>
+                       <div id="saveCtrl" valign="bottom" align="right"> 
+                           <input id="editSave" style="height:50px;width:70px" type="button" value="SAVE" onclick="saveSelectedContainerUpdates();" />
+                       </div>
+                   </td>
+                   
+               </tr>
+            </table>
+		</div>		
+
+
+
+
+<div id="loginPopUp" class="modalDialog" style="display:none" align="center">
+	<div>
+		<h2>Login</h2>
+		<p><input id="login" type="text" name="Login"/></p>
+		<p><input id="password" type="password" name="Password"/></p>
+		<button title="Login"  onclick="doAuthentification(document.getElementById('login').value,document.getElementById('password').value)">Login</button>
+	</div>
+</div>
+
+<!--  Open modal window in this place -->
+<div id="openModal" class="modalDialog" style="display:none" align="center">
+	<div>
+		<a href="#close" title="Close" class="close" onclick="showhide('Testing')" >X</a>
+		<h2>Warning</h2>
+		<p>This is a sample modal box that can be created using the powers of CSS3.</p>
+	</div>
+</div>
+		
+<!-- disabling message Modal -->
+<div id="noConnection" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <p><span id="connectionLost">No connection</span></p>
+  </div>
+</div>		
+	 	<script language="JavaScript" src="../js/EventSource2.js"></script>
+		<script language="JavaScript" src="../js/jquery-1.9.0.min.js"></script> 	
+		<script language="JavaScript" src="../js/steps.js"></script>
+		<script type="text/javascript">
+			
+		var windowClass;
+		var windowToken;
+		var loginName; 
+		var password; 
+
+		$(document).ready(function() {
+			   var params = readRequestParams();
+			   windowToken = params["windowToken"];
+			   windowClass = params["windowClass"];
+			   start();
+			   myStart();
+		});
+
+		
+		function myStart()
+		{
+			if(eventSource !== undefined) {
+				
+			    eventSource.addEventListener('timeout', function(event){
+			    	//alert("Timeout: "+event.type+":"+event.data);
+			    	console.log ("Timeout: "+event.type+":"+event.data );
+			    	window.status="Timeout: "+event.type+":"+event.data
+			    	//window.location.href = window.location.pathname + window.location.search + window.location.hash;
+			    	//close();
+			    });
+				eventSource.addEventListener('updateReeferList', function(event){ 
+					console.log("updateReeferList:"+event.data);
+			    	updateReeferList(event.data);	    		
+			    });
+				
+				eventSource.addEventListener('updateContainerSelection', function(event){ 
+					console.log("updateContainerSelection:"+event.lastEventId+":"+event.data);
+					updateContainerSelection(event.lastEventId,event.data);	    		
+			    });
+				eventSource.addEventListener('clearContainerSelection', function(event){ 
+					console.log("clearContainerSelection:");
+					clearContainerSelection();	    		
+			    });
+				
+				eventSource.addEventListener('restoreContainerColors', function(event){ 
+					
+					restoreContainerColors();	    		
+			    });
+				
+				console.log("eventSource:"+eventSource);
+					
+			}
+		}
+		
+        function updateReeferList(data){
+        	var array = JSON.parse(data);
+        	for(i=0;i<28;i++){
+        		row=i<10?'0'+i:i;
+        		document.getElementById('checked'+row).innerHTML = array[i][0];
+        		document.getElementById('position'+row).innerHTML = array[i][1];
+        		document.getElementById('container'+row).innerHTML = array[i][2];
+        	}
+        }  
+        function clearContainerSelection(){
+        	for (rowToRemove = 0; rowToRemove < 28; rowToRemove++) {
+        		if(rowToRemove<10){
+        			row="row0"+rowToRemove;
+        		}else{
+        			row="row"+rowToRemove;
+        		}
+        		document.getElementById(row).setAttribute("bgcolor", "#FFFFFF");
+        		document.getElementById("selPositionTd").setAttribute("bgcolor", "#FFFFFF");
+        		document.getElementById("selCurTempTd").setAttribute("bgcolor", "#FFFFFF");
+        		document.getElementById("selCommentTd").setAttribute("bgcolor", "#FFFFFF");
+        		document.getElementById("selFaultCodeTd").setAttribute("bgcolor", "#FFFFFF");
+        		document.getElementById("selPosition").style.visibility = "collapse";
+         		document.getElementById("selCurTemp").style.visibility = "collapse";
+        		document.getElementById("selComment").style.visibility = "collapse";
+        		document.getElementById("selFaultCode").style.visibility = "collapse";
+			}
+        }
+        function updateContainerSelection(rowToRemove,rowToSelect){
+        	
+        	if(rowToRemove>-1){
+        		if(rowToRemove<10){
+        			row="row0"+rowToRemove;
+
+        		}else{
+        			row="row"+rowToRemove;
+
+        		}
+        		document.getElementById(row).setAttribute("bgcolor", "#FFFFFF");
+        		document.getElementById("selPositionTd").setAttribute("bgcolor", "#FFFFFF");
+        		document.getElementById("selCurTempTd").setAttribute("bgcolor", "#FFFFFF");
+        		document.getElementById("selCommentTd").setAttribute("bgcolor", "#FFFFFF");
+        		document.getElementById("selFaultCodeTd").setAttribute("bgcolor", "#FFFFFF");
+        		document.getElementById("selPosition").style.visibility = "collapse";
+         		document.getElementById("selCurTemp").style.visibility = "collapse";
+        		document.getElementById("selComment").style.visibility = "collapse";
+        		document.getElementById("selFaultCode").style.visibility = "collapse";
+        		
+        	}
+        	if(rowToSelect>-1){
+        		if(rowToSelect<10){
+        			row="row0"+rowToSelect;
+
+        		}else{
+        			row="row"+rowToSelect;
+
+        		}
+        		document.getElementById(row).setAttribute("bgcolor", "#00BFFF");
+        		document.getElementById("selPositionTd").setAttribute("bgcolor", "#99ff33");
+        		document.getElementById("selCurTempTd").setAttribute("bgcolor", "#99ff33");
+        		document.getElementById("selCommentTd").setAttribute("bgcolor", "#99ff33");
+        		document.getElementById("selFaultCodeTd").setAttribute("bgcolor", "#99ff33");
+        		document.getElementById("selPosition").style.visibility = "visible";
+        		document.getElementById("selCurTemp").style.visibility = "visible";
+        		document.getElementById("selComment").style.visibility = "visible";
+        		document.getElementById("selFaultCode").style.visibility = "visible";
+         	}
+        	
+        }	    		
+
+            /* 
+            Detected changes in container selection options
+                 
+            when area, block, filter or sort is changed a single message is sent to update the server data model for this window.
+            The server will issue a new event updating the relevant data.
+            They will be pre filtered and sorted by the relevant settings in the model.
+            */
+            function changeWorkArea() 
+			{
+          
+                ctrl=document.getElementById("areaCtrl");
+                if(ctrl.options!==undefined){
+                    if(ctrl.selectedIndex==-1){
+                    	area ='';
+                    }else{
+                		area = ctrl.options[ctrl.selectedIndex]!==undefined? ctrl.options[ctrl.selectedIndex].value:'';     
+                    }
+                }                
+                
+                ctrl=document.getElementById("blockCtrl");
+                if(ctrl.options!==undefined){
+                    if(ctrl.selectedIndex==-1){
+                    	block ='';
+                    }else{
+                		block = ctrl.options[ctrl.selectedIndex]!==undefined? ctrl.options[ctrl.selectedIndex].value:'';     
+                    }
+                }
+                
+                ctrl=document.getElementById("filterCtrl");
+                if(ctrl.options!==undefined){
+                    if(ctrl.selectedIndex==-1){
+                    	filter ='';
+                    }else{
+                		filter = ctrl.options[ctrl.selectedIndex]!==undefined? ctrl.options[ctrl.selectedIndex].value:'';  
+                    }
+                }                
+                
+                ctrl=document.getElementById("sortCtrl");
+                if(ctrl.options!==undefined){
+                    if(ctrl.selectedIndex==-1){
+                    	sort ='';
+                    }else{
+                 		sort = ctrl.options[ctrl.selectedIndex]!==undefined? ctrl.options[ctrl.selectedIndex].value:'';   
+                    }
+                }
+                return sendRequest('action=setWorkingArea&area='+area+'&block='+block+'&filter='+filter+'&sort='+sort);   
+     
+            }            
+   
+            var containerProperiesChanged=false;
+            /*
+            Updates the selected container record with the given information changes.
+            assumes lastChecked will be updated by the server side update !
+            */
+            function saveSelectedContainerUpdates()
+            {
+              if(containerProperiesChanged){
+                // Needs sanity check to ensure a container is actually selected , also needs to set the save button color back to grey 
+                var selContainer= document.getElementById('selContainer').innerHTML;                
+                var selPosition= document.getElementById('selPosition').value;
+                var selCurTemp= document.getElementById('selCurTemp').value;
+                var selComment= document.getElementById('selComment').value;
+                var selFaultCode=document.getElementById("selFaultCode").value;
+                containerProperiesChanged=false;
+                return sendRequest('action=updateSelectedContainer&containerId='+selContainer+'&position='+selPosition+'&currentTemp='+selCurTemp+'&comments='+selComment+'&faultCode='+selFaultCode);
+             }else{
+            	return false;
+             }
+            }
+            
+            /*
+            Open container lookup window - this will only find reefers - although the actual containers may be inside or outside the reefer stacks.
+            */
+            function lookupContainer()
+            {
+            	// Needs sanity check to only invoke lookup is the container input field is non whitespace empty 
+           	    /* extract the required search container from the box then trigger the lookup container with the container as input argument */
+           	    containerId=document.getElementById('lookupContainer').value;
+           	    //return NonModalPopupEx("/gctMobile/authenticate?ui=Containers.html&windowClass=ContainersWindow&loginName=" + loginName +"&password="+ password +"&containerId="+ containerId, 700, 950)
+           	    return NonModalPopupEx("../ui/Containers.html?loginName=" + loginName + '&password=' + password +"&containerId="+ containerId, 700, 950)
+             	   
+             }
+           
+            /*
+            Selected contaier event from the left hand list 
+            get the container id and send selection message to server if not container entry not empty
+            */
+            function selectContainer(container)
+            {
+                
+            	if(container!==undefined){
+	            	if(container.length>0){
+	            		return sendRequest('action=selectContainer&containerId='+container);
+	            	}
+	            }
+	            	// needs sanity check, dont send to server if an empty slot has been touched 
+                //return sendRequest('action=selectContainer&rowIndex='+rowIndex+"container="+container);
+            	return false;
+            }
+            function editContainerProperties(box,td)
+           {
+           	box.style.backgroundColor="#ffff00";
+           	document.getElementById(td).setAttribute("bgcolor", "#ffff00");
+           	containerProperiesChanged=true;
+           	return true;
+           }
+           function restoreContainerColors()
+           {
+	            document.getElementById("selPosition").style.backgroundColor="#99ff33";
+	            document.getElementById("selCurTemp").style.backgroundColor="#99ff33";
+	            document.getElementById("selComment").style.backgroundColor="#99ff33";
+	            document.getElementById("selFaultCode").style.backgroundColor="#99ff33";
+        		document.getElementById("selPositionTd").setAttribute("bgcolor", "#99ff33");
+        		document.getElementById("selCurTempTd").setAttribute("bgcolor", "#99ff33");
+        		document.getElementById("selCommentTd").setAttribute("bgcolor", "#99ff33");
+        		document.getElementById("selFaultCodeTd").setAttribute("bgcolor", "#99ff33");
+	            containerProperiesChanged=false;
+           }
+      
+           $(document).ready(function() {
+           }); 
+
+		</script>	
+	</body>
+</html>

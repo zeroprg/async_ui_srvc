@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="description" content="This is main menu page">
+    <meta name="viewport" content="width=device-width, maximum-scale=5"/>
+    
+<link rel="stylesheet" type="text/css" href="../css/steps.css">
+<title>GCT Mobile Helper</title>
+</head>
+<body  style="background-color: rgb(204, 255, 255);">
+<center><img  alt="TSI Company log" src="../Images/bloberry.jpg">
+<h2>Services - GCT Mobile for <span id="environment"></span></h2>
+<br><br><br>
+
+  <div id = "environment" align="center"></div>
+  <br/>
+  <div align="center">
+		<table id="table" border="1" class="Ctable" cellspacing="1" width="60%">     
+          <thead>
+			<tr>GCT Mobile start time (elapsed time)</tr>
+		    <tr>N4 Database connection status</tr>
+		  </thead>
+		    <tr>
+  		        <td>GCT Mobile start time (elapsed time)</td>
+		        <td><div id="startTime" align="center"></div></td>
+		    </tr>
+		    <tr>
+				<td>N4 Database connection status</td>		    
+			    <td>
+			       <div align="center">
+			          <img id="deeService"  src="unknown" title="" alt="N4 Database link status" height="28" width="28"> 
+			       </div>   
+			    </td>   
+			</tr>				    
+			<tr>
+				<td>N4 Web Service connection status</td>
+				<td>
+				    <div align="center">
+				        <img id="argoService"  src="unknown" title="" alt="N4 Web Service link status" height="28" width="28">
+				    </div>
+				</td>
+			</tr>
+		</table>
+</div>
+
+<div id="loginPopUp" class="modalDialog" style="display:none;" align="center">
+	<div>
+		<h2>Login</h2>
+		<p><input id="login" type="text" name="Login"/></p>
+		<p><input id="password" type="password" name="Password"/></p>
+		<button title="Login"  onclick="doAuthentification(document.getElementById('login').value,document.getElementById('password').value)">Login</button>
+	</div>
+</div>
+
+<!--  Open modal window in this place -->
+<div id="openModal" class="modalDialog" style="display:none" align="center">
+	<div>
+		<a href="#close" title="Close" class="close" onclick="showhide('Testing')" >X</a>
+		<h2>Warning</h2>
+		<p>This is a sample modal box that can be created using the powers of CSS3.</p>
+	</div>
+</div>
+
+<!-- disabling message Modal -->
+<div id="noConnection" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <p><span id="connectionLost">No connection</span></p>
+  </div>
+</div>
+<script language="JavaScript" src="../js/jquery-1.9.0.min.js"></script>
+<script language="JavaScript" src="../js/EventSource2.js"></script>
+<script language="JavaScript" src="../js/steps.js"></script>
+<script type="text/javascript">
+var windowClass;
+var windowToken;
+var loginName; 
+var password; 
+function myStart()
+{
+	if(eventSource !== undefined) {
+	//Place for custom event listeners
+	}
+}
+
+
+$(document).ready(function() {
+	   var params = readRequestParams();
+	   windowToken = params["windowToken"];
+	   windowClass = params["windowClass"];
+	   start();
+	   myStart();
+	});
+</script>
+</body>
+</html>

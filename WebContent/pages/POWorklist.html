@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="description" content="This is pow list page">
+    <meta name="viewport" content="width=device-width, maximum-scale=5"/>
+    
+<link rel="stylesheet" type="text/css" href="../css/steps.css">
+<link href="../css/simplePagination.css" type="text/css" rel="stylesheet"/>									
+<title>POW list</title>
+
+</head>
+<body  style="background-color:#ccf2ff">
+
+  <br>
+  <div style="padding-left:5px;padding-right:5px;float:left;">
+    <b>POW</b> &nbsp;
+  	<select id="powlistbox" onchange= "sendRequest('action=selectPow&pow=' + $('#powlistbox :selected').text())">
+    </select>
+  </div>
+  <div style="height: 30px;" style="float:left;">
+    &nbsp; &nbsp;<b>WORKLIST</b> &nbsp;
+  	<select id="worklistbox" onchange="sendRequest('action=selectWorkListName&worklistName=' + $('#worklistbox :selected').text());">
+    </select>
+  </div>
+<div style="padding-left:5px;padding-right:15px;">  
+ <div id="pageNumDiv1" style="float:left;height:20px;font-size:12px;font-weight:bold">
+	Page 1 of 1
+ </div> 
+  <div id="pageNumDiv2" style="float:right;height:20px;font-size:12px;font-weight:bold">
+	0 moves in list
+ </div> 
+ 
+<table id="table" border="1" class="Ctable" cellspacing="1" width="100%">     
+     <thead>
+       <th>Sequence</th>
+       <th>CHE carry</th>
+       <th>Kind</th>
+       <th>Equipment ID </th>
+       <th>Move From</th>
+       <th>Move To</th>
+       <th>Class</th>
+       <th>Len</th>
+       <th>Wgt-M.Tn.</th>
+       <th>Bonded dest.</th>
+       <th>Warning</th>
+       <th>Move time</th>
+	 </thead>
+	 <tbody></tbody>
+  </table>
+
+<div style="height:30px;"></div>
+<div id="pagination" style="height:30px; float: right; display:none; text-align:center;">  
+</div>
+<div style="height:60px;"></div>
+   <input id="lookupContainer" type="text" name="lookupContainer">&nbsp;
+   <input id="lookupButton" style="height:50px;width:70px" type="button" value="LOOKUP" onclick="lookupContainer(loginName,password);" />  
+</div>
+
+
+<!--  Modal windows  start here  -->
+
+<div id="loginPopUp" class="modalDialog" style="display:none" align="center">
+	<div>
+		<h2>Login</h2>
+		<p><input id="login" type="text" name="Login"/></p>
+		<p><input id="password" type="password" name="Password"/></p>
+		<button title="Login"  onclick="doAuthentification(document.getElementById('login').value,document.getElementById('password').value)">Login</button>
+	</div>
+</div>
+
+<!--  Open modal window in this place -->
+<div id="openModal" class="modalDialog" style="display:none" align="center">
+	<div>
+		<a href="#close" title="Close" class="close" onclick="showhide('Testing')" >X</a>
+		<h2>Warning</h2>
+		<p>This is a sample modal box that can be created using the powers of CSS3.</p>
+	</div>
+</div>
+
+<!-- disabling message Modal -->
+<div id="noConnection" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <p><span id="connectionLost">No connection</span></p>
+  </div>
+</div>
+
+<script language="JavaScript" src="../js/jquery-1.9.0.min.js"></script>
+<!-- 	<script src="http://code.jquery.com/jquery-1.9.1.js"></script> -->
+<script language="JavaScript" src="../js/EventSource2.js"></script>
+<script language="JavaScript" src="../js/steps.js"></script>
+<script language="JavaScript" src="../js/jquery.simplePagination.js"></script>
+<script type="text/javascript">
+var windowClass;
+var windowToken;
+var loginName; 
+var password;
+var authenticate;
+var pow;
+var data_header = ["Attributes", "values"]; //headers
+var TOTAL_ROWS_TO_DISPLAY = 12;
+var firstTime = true;
+var currentPage = 0;
+var totalRows  =  1;
+
+
+function myStart()
+{
+	if(eventSource !== undefined) {
+	//Place for custom event listeners
+	}
+}
+
+// This function use pagination please check if 'pagination' div  available in your page
+function makeTable(tableId, data, lastRowIndx) {
+	container = "#"+ tableId;
+	$(container + " tbody").html("");
+    var table = $(container);
+    totalRows = data.length;
+    if( totalRows < 1 ) {
+    	appendBlankedRowsTo(tableId, TOTAL_ROWS_TO_DISPLAY);
+//    	$("#pagination").hide();    
+    }
+    else 
+    {       
+	    $.each(data, function(rowIndx, r) {
+	       // if( rowIndex > lastRowIndx ) return; 
+	        var row = $("<tr/>");
+	        $.each(r, function(colIndx, c) {
+		        if  ( colIndx == 0 ) {
+		         c = "<img width='30px' height='30px' src='../Images/" + c.split(';')[0] + ".ico'>" + c.split(';')[1]+"</img>";
+			    }
+	            row.append($("<td id='col" + rowIndx + "_" + colIndx+ "'/>").html(c=="null" ? "":c));
+	            
+	        });
+	        table.append(row);
+	    });
+	    // append only remaining rows
+	    if( totalRows != TOTAL_ROWS_TO_DISPLAY )
+		{ 
+	     	appendBlankedRowsTo(tableId, TOTAL_ROWS_TO_DISPLAY-(totalRows+TOTAL_ROWS_TO_DISPLAY)%TOTAL_ROWS_TO_DISPLAY );
+	    } 
+	 	if( firstTime == true ){
+	 		$("#pagination").show();
+	 		firstTime = false;
+	    }
+	    
+    }
+	initPagination("table", TOTAL_ROWS_TO_DISPLAY);
+	//display table header at first page
+	callBackPageSelected(1);
+    return;
+}
+
+// append blanked rows
+
+function appendBlankedRowsTo(tableId, nummberRows)
+{
+	var table = $("#"+ tableId);
+	headRow = $("#"+ tableId + " thead th");
+    for(i=0; i < nummberRows; i++ )
+    {
+    	var row = $("<tr/>");
+        $.each(headRow, function(colIndx, c) { 
+        	row.append($("<td style='height:30px'/>"));
+        });
+        table.append(row);
+    }    
+}
+
+// Callback function used to call from JQuery paginator plugin to display selected page and number of total pages 
+ function callBackPageSelected(pageNumber)
+ {
+	 totalPages = Math.floor(totalRows/TOTAL_ROWS_TO_DISPLAY + 1);
+	 $("#pageNumDiv1").text("Page " +pageNumber + " of " + totalPages); 
+	 $("#pageNumDiv2").text(totalRows + " moves in list ");
+	 
+ }
+
+/*
+function changeTableByArray(data, lastRowIndx) {
+	// run over array of json objects
+	    $.each(data, function(rowIndx, r) {
+        	//if( rowIndx > lastRowIndx ) return; 
+	        $.each(r, function(colIndx, c) { 
+    	        //row.append($("<td/>").text(c));
+        	    $('#col'+ rowIndx + '_'+ colIndx ).html(c);
+        });
+    });
+}
+
+*/
+
+$(document).ready(function() {
+   appendBlankedRowsTo("table", TOTAL_ROWS_TO_DISPLAY);
+   var params = readRequestParams();
+   windowToken = params["windowToken"];
+   windowClass = params["windowClass"];
+   start();
+   myStart();
+   if(params["pow"]!=null){
+   		sendRequest('action=selectPow&pow=' +  params["pow"]);
+   }
+   
+   $("table.Ctable tbody").delegate('tr', 'click', function(){
+	       // alert( $(this).find('td').length );
+	       //get <td> element values here!!??
+	       var containerId = $(this).find('td')[3].innerText;
+	       // alert ( "You selected Container id: " + containerId );
+	       $("#lookupContainer").val(containerId); 
+   });
+		 
+});
+
+
+</script>
+</body>
+
+</html>

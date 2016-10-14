@@ -1,0 +1,241 @@
+.break { page-break-before: always; }
+BODY	{color:#000000;background-color:#FFFFEA;margin-top:2px;margin-left:10px;margin-right:0px}
+A, BODY, INPUT, OPTION, SELECT, TABLE, TD, TR {font-family:tahoma,sans-serif; font-size:11px}
+BODY.Menu {color:#000000;background-color:LightBlue;margin-top:2px;margin-left:10px;margin-right:0px}
+TABLE {border:0px}
+A		{COLOR: #000099;TEXT-DECORATION:none}
+A:hover	{TEXT-DECORATION:underline}
+.s		{font-size:11px}
+.sb		{font-weight:BOLD}
+.sBL	{color:#003366}
+.sBLb	{font-weight:BOLD;color:#003366}
+.sBL2b	{font-weight:BOLD;color:#104A7B}
+.sw		{color:#ffffff}
+.sr     {color:red}
+.swb	{font-weight:BOLD;color:#FFFFFF}
+.uw		{color:#FFFFFF;text-decoration: underline}
+.flb	{font-size:24px;font-weight:BOLD;color:#000000}
+.title	{font-family:tahoma,san-serif;font-size:13px;font-weight:BOLD;color:#104A7B}
+.Wf		{font-size:12px}
+.rmsg TD	{font-size:12px}
+.rmsg A	{font-size:12px}
+.rmsg A	{font-size:12px}
+.ns4Wf	{font-size:13px}
+.menu	{color:#000066;font-weight:BOLD;TEXT-DECORATION:none}
+A.menu:hover{text-decoration:none}
+.tab {color:#FFFFFF;text-decoration:none;font-weight: bold}
+A.tab:hover{TEXT-DECORATION:underline}
+.msnNav{color:#d6e7ef;text-decoration:none;font-size:10px}
+FONT.red {color:#e00505}
+TR.H	{BACKGROUND-COLOR: #C3D6E6}
+.linkb	{BACKGROUND-COLOR: #C3D6E6}
+.linkbr	{BACKGROUND-COLOR: #C3D6E6;color:red}
+.bttntext {font-weight:BOLD;color:#336699;text-decoration:none}
+.Bsbttn {font-size:13px;background: #D6E7EF;border-bottom: 1px solid #104A7B;border-right: 1px solid #104A7B;border-left: 1px solid #AFC4D5;border-top:1px solid #AFC4D5; color:#000066;text-decoration:none;cursor: hand}
+.sbttn {background: #D6E7EF;border-bottom: 1px solid #104A7B;border-right: 1px solid #104A7B;border-left: 1px solid #AFC4D5;border-top:1px solid #AFC4D5;color:#000066;height:19px;text-decoration:none;cursor: hand}
+.pbttn {background: #D6E7EF;border-bottom: 1px solid #104A7B;border-right: 1px solid #104A7B;border-left: 1px solid #AFC4D5;border-top: 1px solid #AFC4D5;color:#000066;height: 19px;text-decoration:none;padding-left: 4px;padding-right: 4px;padding-top:2px;cursor: hand}
+.pbttn:hover:{text-decoration:none}
+.obttn {background: #D6E7EF;vertical-align: middle;color:777777;padding:1px;padding-left:6px;padding-right: 6px;text-decoration:none}
+.ns4obttn {font-size:12px;background: #D6E7EF;color:#8CA5B5;text-decoration:none}
+.ns4sbttn {font-size:12px;background:#D6E7EF;border-bottom: 1px solid #104A7B;border-right: 1px solid #104A7B;border-left: 1px solid #AFC4D5;border-top: 1px solid #AFC4D5;color:#000066;height: 19px;text-decoration:none}
+.drpdwn	{color:#000066;background-color:#D6E7EF}
+
+/* Table styles*/
+TABLE.Ctable  TH { text-align:center;vertical-align:center;background:#D2D2D2; }
+TABLE.Ctable  TD { text-align:leftr;vertical-align:center;background:#F0F0F0; }
+TABLE.Ctable,TABLE.Ctable TH,TABLE.Ctable TD { border: 1px solid black}
+TABLE.Ctable  TR TD:first-child  { text-align:left;vertical-align:center;background:#D2D2D2; }
+ 	
+TABLE.Mtable  TH,TD {border-bottom:1px solid #C1CDD8;text-align:left;vertical-align:center}
+TABLE.Btable  TH,TD {text-align:left;vertical-align:center}
+TABLE.Menu A {font-weight:normal;font-size:16px}
+TABLE.Menu TR {line-height:1.7}
+
+TD.list-column-underscore {border-bottom:1px solid #C1CDD8;}
+TD.list-column-left-border {border:1px solid #87CEEB;}
+TH.list-header-border  {border:1px solid #87CEEB;}
+
+.inPgBrdr {border:solid #8CA5B5 1px}
+.smcRow {border-top:solid #C1CDD8 1px}
+.smcDiv {height:117px; border:1px #8CA5B5 solid; overflow-x:hidden; overflow-y:auto; width:344px; margin:0px;padding:0px}
+.msglistcntrl TD {border-bottom:none}
+.tagline{color:#d6e7ef;font-weight:BOLD;text-decoration:none}
+.PPModuleTtlTxt{COLOR:#104A7B; FONT-FAMILY:Tahoma, sans-serif}
+.PPDesTxt{FONT-FAMILY:Tahoma, san-serif}
+.PPModuleBrd{BACKGROUND-COLOR:#DBEAF5}
+.PPModuleTtlTbl{BACKGROUND-COLOR:#DBEAF5}
+.PPDynamicTbl{BACKGROUND-COLOR:#FFFFFF}
+.PPRSbmtBtn{FONT-FAMILY:Tahoma, san-serif; FONT-SIZE:13px; BACKGROUND:#DBEAF5; BORDER-BOTTOM:1px solid #104A7B; BORDER-RIGHT:1px solid #104A7B; BORDER-LEFT:1px solid #AFC4D5; BORDER-TOP:1px solid #AFC4D5; COLOR:#000066; FONT-WEIGHT:normal; TEXT-DECORATION:none; CURSOR:wait}
+
+    .modalDialog {
+        opacity:1;
+		pointer-events: auto;
+      /*  display: none; */ /* Hidden by default */
+	    position: fixed; /* Stay in place */
+	    z-index: 1; /* Sit on top */
+	    padding-top: 100px; /* Location of the box */
+	    left: 0;
+	    top: 0;
+	    width: 100%; /* Full width */
+	    height: 100%; /* Full height */
+	    overflow: auto; /* Enable scroll if needed */
+	    background-color: rgb(0,0,0); /* Fallback color */
+	    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	}
+
+	.modalDialog > div {
+	    display: inline-block;
+	    padding: 5px 20px 13px 20px;
+	    border-radius: 10px;
+	    background: #fff;
+	    background: -moz-linear-gradient(#fff, #999);
+	    background: -webkit-linear-gradient(#fff, #999);
+	    
+	    position: relative;
+        width: auto;
+        margin: 10px;
+	}
+	
+
+	.chatUsers {
+	  position: relative;
+	  display: inline-block;
+	  padding: 5px 20px 13px 20px;
+	  border-radius: 10px;
+	  background: #fff;
+	  background: -moz-linear-gradient(#fff, #999);
+	  background: -webkit-linear-gradient(#fff, #999);
+	}
+	
+	.close {
+		background: #606061;
+		color: #FFFFFF;
+		line-height: 25px;
+		position: absolute;
+		right: -12px;
+		text-align: center;
+		top: -10px;
+		width: 24px;
+		text-decoration: none;
+		font-weight: bold;
+		-webkit-border-radius: 12px;
+		-moz-border-radius: 12px;
+		border-radius: 12px;
+		-moz-box-shadow: 1px 1px 3px #000;
+		-webkit-box-shadow: 1px 1px 3px #000;
+		box-shadow: 1px 1px 3px #000;
+	}
+
+.close:hover { background: #00d9ff; }
+
+/*These styles to display No Rogers coverage message  */
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    font-size: 300%;
+    text-align: center;
+    color: red;
+    margin: auto;
+    padding: 20px;
+    width: 100%;
+}
+
+/*  Inframe for messanger*/
+
+intrinsic-container {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+}
+ 
+/* 16x9 Aspect Ratio */
+.intrinsic-container-16x9 {
+  padding-bottom: 56.25%;
+}
+ 
+/* 4x3 Aspect Ratio */
+.intrinsic-container-4x3 {
+  padding-bottom: 75%;
+}
+ 
+.intrinsic-container iframe {
+  position: absolute;
+  top:80%;
+  left: 0%;
+   width: 50%;
+  height: 50%; 
+}
+
+
+// input and bttns
+
+.btn-group-lg>.btn, .btn-lg {
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+}
+
+.btn-info {
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+button, html input[type=button], input[type=reset], input[type=submit] {
+    -webkit-appearance: button;
+    cursor: pointer;
+}
+button, select {
+    text-transform: none;
+}
+button {
+    overflow: visible;
+}
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+}
+
+
+

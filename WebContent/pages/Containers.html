@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="description" content="This is Container page">
+    <meta name="viewport" content="width=device-width, maximum-scale=5"/>
+    
+    <link rel="stylesheet" type="text/css" href="../css/steps.css">
+    
+    <title>Containers</title>
+</head>
+<body>
+<div  style="float:left; width:15%;text-align:center;background-color:#ccf2ff; height:100vh" >
+  <!-- Set Left Div As your requirement -->
+  <b>Containers Look up </b>
+  <div style="height: 8px;"></div>
+  <input id="container" type="text" name="container"/>
+  <!-- <button onclick="sendRequest2('action=setContainer&container=',$('#container').text());">Lookup</button><br> -->
+  <button onclick="sendRequest('action=setContainer&containerId=' + document.getElementById('container').value);">Lookup</button><br>
+
+  
+</div>
+<div style="float:left; width:85%;">
+<table id="example" border="1" class="Ctable" cellspacing="1" width="100%">
+     <caption><H2><b>Container lookup CHESS for <span id="environment"></span></b></H2></caption>
+     <thead>
+       <th width="40%">Attributes</th>
+       <th width="60%">value</th>
+	 </thead>		
+     <tr>
+         <td>Group</td>
+         <td id="Group"></td>
+     </tr>
+     <tr>
+         <td>Container Id</td>
+         <td id="ContainerId"></td>
+     </tr>
+     <tr>
+         <td>Status</td>
+         <td id="Status"></td>
+     </tr>
+     <tr>
+         <td>Grade</td>
+         <td id="Grade"></td>
+     </tr>
+     <tr>
+         <td>Delivery Instructions</td>
+         <td id="Delivery_Instructions"></td>
+     </tr>            
+     <tr>
+         <td>Inbound_Carrier</td>
+         <td id="Inbound_Carrier"></td>
+     </tr>            
+     <tr>
+         <td>Outbound Carrier</td>
+         <td id="Outbound_Carrier"></td>
+     </tr>            
+     <tr>
+         <td>Size-Type-Height</td>
+         <td id="Size_Type_Height"></td>
+     </tr>
+     <tr>
+         <td>Gross Weight</td>
+         <td id="Gross_Weight"></td>
+     </tr>     
+     <tr>
+         <td>Commodity Description (Code)</td>
+         <td id="Commodity_Description"></td>
+     </tr>     
+     <tr>
+         <td>Temperature Required</td>
+         <td id="Temperature_Required"></td>
+     </tr>     
+     <tr>
+         <td>Current Location</td>
+         <td id="Current_Location"></td>
+     </tr>     
+     <tr>
+        <td>Position</td>
+        <td id="Position"></td>
+     </tr>     
+     <tr>
+         <td>Pickup due</td>
+         <td id="Pickup_due"></td>
+     </tr>     
+     <tr>
+         <td>Line</td>
+         <td id="Line"></td>
+     </tr>     
+     <tr>
+         <td>Damaged</td>
+         <td id="Damaged"></td>
+     </tr>     
+     <tr>
+         <td>Equipment order</td>
+         <td id="Equipment_order"></td>
+     </tr>     
+     <tr>
+         <td>Feature</td>
+         <td id="Feature"></td>
+     </tr>     
+     <tr>
+         <td>Holds V(Vessel) R(Rail) T(Road)</td>
+         <td id="Holds"></td>
+     </tr>     
+     <tr>
+         <td>Activity Released for</td>
+         <td id="Activity_Released"></td>
+     </tr>     
+     <tr>
+         <td>Hazard Class IMDG(UN-CODE)</td>
+         <td id="Hazard_Class"></td>
+     </tr>     
+     <tr>
+         <td>Out of gauge (Back, Front, Left, Right, Top)</td>
+         <td id="Out_of_gauge"></td>
+     </tr>     
+  </table>
+  <br><br><br>
+   <div align="right"> 
+       <input id="chngBttn"  style="height:50px;width:70px;font-size:20px;visibility:hidden"  type="button" value="SAVE" onclick="saveSelectedContainerUpdates();"/>
+   </div>
+</div>
+
+<!--  Modal windows  start here  -->
+
+
+
+<div id="loginPopUp" class="modalDialog" style="display:none" align="center">
+	<div>
+		<h2>Login</h2>
+		<p><input id="login" type="text" name="Login"/></p>
+		<p><input id="password" type="password" name="Password"/></p>
+		<button title="Login"  onclick="doAuthentification(document.getElementById('login').value,document.getElementById('password').value)">Login</button>
+	</div>
+</div>
+
+<!--  Open modal window in this place -->
+<div id="openModal" class="modalDialog" style="display:none" align="center">
+	<div>
+		<a href="#close" title="Close" class="close" onclick="showhide('Testing')" >X</a>
+		<h2>Warning</h2>
+		<p>This is a sample modal box that can be created using the powers of CSS3.</p>
+	</div>
+</div>
+
+<!-- disabling message Modal -->
+<div id="noConnection" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <p><span id="connectionLost">No connection</span></p>
+  </div>
+</div>
+
+<script language="JavaScript" src="../js/jquery-1.9.0.min.js"></script>
+<script language="JavaScript" src="../js/EventSource2.js"></script>
+<script language="JavaScript" src="../js/steps.js"></script>
+<script type="text/javascript">
+var windowClass;
+var windowToken;
+var loginName; 
+var password; 
+var data_header = ["Attributes", "values"]; //headers
+var table_container =  $("#table_container");
+
+function myStart()
+{
+	if(eventSource !== undefined) {
+	//Place for custom event listeners
+	}
+}
+
+
+$(document).ready(function() {
+	   var params = readRequestParams();
+	   windowToken = params["windowToken"];
+	   windowClass = params["windowClass"];
+	   start();
+	   myStart();
+	   if(params["containerId"]!=null){
+	   		sendRequest('action=setContainer&containerId=' +  params["containerId"]);
+	   }
+	});
+
+
+// end of global structure 
+// dedicated to this page  functions started here :
+	
+	
+// update Container's position 
+function saveSelectedContainerUpdates() {
+	var position = $("#Position input").val();
+   	$("#Position").css("background-color", "#99ff33"); // make it green
+   	$("#Position input").css("background-color", "#99ff33"); // make it green
+	sendRequest("action=setContainerUpdate&position=" + position );
+
+}
+
+function positionChanged(){
+	var color = $("#Position").css("background-color");
+    if(color == "rgb(153, 255, 51)" ) { // if it is green
+    	$("#Position").css("background-color", "yellow"); // make it yellow
+    	$("#Position input").css("background-color", "yellow"); // make it yellow
+    }	
+ }
+</script>
+</body>
+</html>
